@@ -29,6 +29,9 @@ type Client struct {
 	UserAgent string
 
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
+
+	// Services used for talking to different parts of the Apple Music API.
+	Storefront *StorefrontsService
 }
 
 type service struct {
@@ -91,6 +94,7 @@ func NewClient(httpClient *http.Client) *Client {
 		BaseURL:   baseURL,
 	}
 	c.common.client = c
+	c.Storefront = (*StorefrontsService)(&c.common)
 
 	return c
 }
