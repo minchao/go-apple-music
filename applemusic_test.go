@@ -110,6 +110,22 @@ func TestNewRequest(t *testing.T) {
 	}
 }
 
+func TestNewRequest_invalidJSON(t *testing.T) {
+	c := NewClient(nil)
+
+	type T struct {
+		A map[interface{}]interface{}
+	}
+	_, err := c.NewRequest("GET", "/", &T{})
+
+	if err == nil {
+		t.Error("Expected error to be returned.")
+	}
+	if err, ok := err.(*json.UnsupportedTypeError); !ok {
+		t.Errorf("Expected a JSON error; got %#v.", err)
+	}
+}
+
 func TestNewRequest_badURL(t *testing.T) {
 	c := NewClient(nil)
 	_, err := c.NewRequest("GET", ":", nil)
@@ -236,5 +252,21 @@ func TestCheckResponse_noBody(t *testing.T) {
 	}
 	if !reflect.DeepEqual(err, want) {
 		t.Errorf("Error = %#v, want %#v", err, want)
+	}
+}
+
+func TestCheckResponse_statusUnauthorized(t *testing.T) {
+	res := &http.Response{
+		Request:    &http.Request{},
+		StatusCode: http.StatusUnauthorized,
+		Body:       ioutil.NopCloser(strings.NewReader("")),
+	}
+
+	err := CheckResponse(res)
+	if err == nil {
+		t.Error("Expected error response.")
+	}
+	if got, want := err.Error(), http.StatusText(http.StatusUnauthorized); got != want {
+		t.Errorf("Error = %v, want %v", got, want)
 	}
 }
