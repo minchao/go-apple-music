@@ -9,7 +9,7 @@ import (
 // StorefrontsService handles communication with the storefront related methods of the Apple Music API.
 type StorefrontsService service
 
-type Attributes struct {
+type StorefrontAttributes struct {
 	DefaultLanguageTag    string   `json:"defaultLanguageTag"`
 	Name                  string   `json:"name"`
 	SupportedLanguageTags []string `json:"supportedLanguageTags"`
@@ -17,10 +17,10 @@ type Attributes struct {
 
 // Storefront represents a storefront, an iTunes Store territory that the content is available in.
 type Storefront struct {
-	Attributes Attributes `json:"attributes"`
-	Href       string     `json:"href"`
-	Id         string     `json:"id"`
-	Type       string     `json:"type"`
+	Attributes StorefrontAttributes `json:"attributes"`
+	Href       string               `json:"href"`
+	Id         string               `json:"id"`
+	Type       string               `json:"type"`
 }
 
 type Storefronts struct {

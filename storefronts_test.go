@@ -44,7 +44,7 @@ func TestStorefrontsService_Get(t *testing.T) {
 	want := &Storefronts{
 		Data: []Storefront{
 			{
-				Attributes: Attributes{
+				Attributes: StorefrontAttributes{
 					DefaultLanguageTag: "ja-jp",
 					Name:               "Japan",
 					SupportedLanguageTags: []string{
@@ -61,6 +61,21 @@ func TestStorefrontsService_Get(t *testing.T) {
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Storefront.Get = %+v, want %+v", got, want)
+	}
+}
+
+func TestStorefrontsService_Get_error(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/v1/storefronts/jp", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		w.WriteHeader(http.StatusBadRequest)
+	})
+
+	_, _, err := client.Storefront.Get(context.Background(), "jp", nil)
+	if err == nil {
+		t.Error("Expected HTTP 400 response")
 	}
 }
 
@@ -115,7 +130,7 @@ func TestStorefrontsService_GetByIds(t *testing.T) {
 	want := &Storefronts{
 		Data: []Storefront{
 			{
-				Attributes: Attributes{
+				Attributes: StorefrontAttributes{
 					DefaultLanguageTag: "ja-jp",
 					Name:               "Japan",
 					SupportedLanguageTags: []string{
@@ -128,7 +143,7 @@ func TestStorefrontsService_GetByIds(t *testing.T) {
 				Type: "storefronts",
 			},
 			{
-				Attributes: Attributes{
+				Attributes: StorefrontAttributes{
 					DefaultLanguageTag: "en-gb",
 					Name:               "Taiwan",
 					SupportedLanguageTags: []string{
@@ -204,7 +219,7 @@ func TestStorefrontsService_GetAll(t *testing.T) {
 	want := &Storefronts{
 		Data: []Storefront{
 			{
-				Attributes: Attributes{
+				Attributes: StorefrontAttributes{
 					DefaultLanguageTag: "en-gb",
 					Name:               "Taiwan",
 					SupportedLanguageTags: []string{
@@ -217,7 +232,7 @@ func TestStorefrontsService_GetAll(t *testing.T) {
 				Type: "storefronts",
 			},
 			{
-				Attributes: Attributes{
+				Attributes: StorefrontAttributes{
 					DefaultLanguageTag: "en-gb",
 					Name:               "Micronesia, Federated States of",
 					SupportedLanguageTags: []string{
