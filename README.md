@@ -1,4 +1,4 @@
-# go-applemusic
+# go-apple-music
 
 A Go client library for accessing the [Apple Music API][].
 
