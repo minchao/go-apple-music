@@ -32,6 +32,7 @@ type Client struct {
 
 	// Services used for talking to different parts of the Apple Music API.
 	Storefront *StorefrontsService
+	Catalog    *CatalogService
 }
 
 type service struct {
@@ -95,6 +96,7 @@ func NewClient(httpClient *http.Client) *Client {
 	}
 	c.common.client = c
 	c.Storefront = (*StorefrontsService)(&c.common)
+	c.Catalog = (*CatalogService)(&c.common)
 
 	return c
 }
