@@ -1,5 +1,11 @@
 package applemusic
 
+import (
+	"context"
+	"fmt"
+	"strings"
+)
+
 type MusicVideoAttributes struct {
 	URL              string          `json:"url"`
 	Name             string          `json:"name"`
@@ -32,4 +38,41 @@ type MusicVideo struct {
 
 type MusicVideos struct {
 	Data []MusicVideo `json:"data"`
+}
+
+func (s *CatalogService) getMusicVideos(ctx context.Context, u string) (*MusicVideos, *Response, error) {
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	musicVideos := &MusicVideos{}
+	resp, err := s.client.Do(ctx, req, musicVideos)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return musicVideos, resp, nil
+}
+
+// GetMusicVideo fetches a music video using its identifier.
+func (s *CatalogService) GetMusicVideo(ctx context.Context, storefront, id string, opt *Options) (*MusicVideos, *Response, error) {
+	u := fmt.Sprintf("v1/catalog/%s/music-videos/%s", storefront, id)
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return s.getMusicVideos(ctx, u)
+}
+
+// GetMusicVideosByIds fetches one or more music videos using their identifiers.
+func (s *CatalogService) GetMusicVideosByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*MusicVideos, *Response, error) {
+	u := fmt.Sprintf("v1/catalog/%s/music-videos?ids=%s", storefront, strings.Join(ids, ","))
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return s.getMusicVideos(ctx, u)
 }
