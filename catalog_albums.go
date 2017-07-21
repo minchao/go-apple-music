@@ -33,24 +33,24 @@ type PlayParameters struct {
 
 // Album represents an album.
 type AlbumAttributes struct {
-	ArtistName     string         `json:"artistName"`
-	Artwork        Artwork        `json:"artwork"`
-	ContentRating  string         `json:"contentRating,omitempty"`
-	Copyright      string         `json:"copyright"`
-	EditorialNotes EditorialNotes `json:"editorialNotes,omitempty"`
-	GenreNames     []string       `json:"genreNames"`
-	IsComplete     bool           `json:"isComplete"`
-	IsSingle       bool           `json:"isSingle"`
-	Name           string         `json:"name"`
-	ReleaseDate    string         `json:"releaseDate"`
-	PlayParams     PlayParameters `json:"playParams,omitempty"`
-	TrackCount     int64          `json:"trackCount"`
-	URL            string         `json:"url"`
+	ArtistName     string          `json:"artistName"`
+	Artwork        Artwork         `json:"artwork"`
+	ContentRating  string          `json:"contentRating,omitempty"`
+	Copyright      string          `json:"copyright"`
+	EditorialNotes *EditorialNotes `json:"editorialNotes,omitempty"`
+	GenreNames     []string        `json:"genreNames"`
+	IsComplete     bool            `json:"isComplete"`
+	IsSingle       bool            `json:"isSingle"`
+	Name           string          `json:"name"`
+	ReleaseDate    string          `json:"releaseDate"`
+	PlayParams     *PlayParameters `json:"playParams,omitempty"`
+	TrackCount     int64           `json:"trackCount"`
+	URL            string          `json:"url"`
 }
 
 type AlbumRelationships struct {
 	Artists Artists         `json:"artists"`          // Default inclusion: Identifiers only
-	Genres  Genres          `json:"genres,omitempty"` // Default inclusion: None
+	Genres  *Genres         `json:"genres,omitempty"` // Default inclusion: None
 	Tracks  json.RawMessage `json:"tracks"`           // The songs and music videos on the album. Default inclusion: Objects
 }
 
