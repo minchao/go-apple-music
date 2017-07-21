@@ -17,11 +17,13 @@ type Artwork struct {
 	TextColor2 string `json:"textColor2"`
 	TextColor3 string `json:"textColor3"`
 	TextColor4 string `json:"textColor4"`
+	IsMosaic   bool   `json:"isMosaic,"` // Undocumented, Used in Playlists.
 }
 
 // EditorialNotes represents notes.
 type EditorialNotes struct {
 	Standard string `json:"standard"`
+	Name     string `json:"name,omitempty"` // Undocumented
 	Short    string `json:"short"`
 }
 
