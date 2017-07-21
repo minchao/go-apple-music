@@ -234,3 +234,45 @@ func CheckResponse(r *http.Response) error {
 		return errorResponse
 	}
 }
+
+// Transport is an http.RoundTripper.
+type Transport struct {
+	Token string // Apple Music token
+
+	// Transport is the underlying HTTP transport to use when making requests.
+	// It will default to http.DefaultTransport if nil.
+	Transport http.RoundTripper
+}
+
+// RoundTrip implements the RoundTripper interface.
+func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
+	req = cloneRequest(req) // per RoundTrip contract
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", t.Token))
+
+	return t.transport().RoundTrip(req)
+}
+
+// Client returns an *http.Client that makes requests.
+func (t *Transport) Client() *http.Client {
+	return &http.Client{Transport: t}
+}
+
+func (t *Transport) transport() http.RoundTripper {
+	if t.Transport != nil {
+		return t.Transport
+	}
+	return http.DefaultTransport
+}
+
+// cloneRequest returns a clone of the provided *http.Request.
+func cloneRequest(r *http.Request) *http.Request {
+	// shallow copy of the struct
+	r2 := new(http.Request)
+	*r2 = *r
+	// deep copy of the Header
+	r2.Header = make(http.Header, len(r.Header))
+	for k, s := range r.Header {
+		r2.Header[k] = append([]string(nil), s...)
+	}
+	return r2
+}

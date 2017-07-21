@@ -270,3 +270,40 @@ func TestCheckResponse_statusUnauthorized(t *testing.T) {
 		t.Errorf("Error = %v, want %v", got, want)
 	}
 }
+
+func TestTransport(t *testing.T) {
+	setup()
+	defer teardown()
+
+	token := "TOKEN"
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if got, want := r.Header.Get("Authorization"), fmt.Sprintf("Bearer %s", token); got != want {
+			t.Errorf("request contained token %s, want %s", got, want)
+		}
+	})
+
+	tp := &Transport{
+		Token: token,
+	}
+	c := NewClient(tp.Client())
+	c.BaseURL = client.BaseURL
+	req, _ := c.NewRequest("GET", "/", nil)
+	c.Do(context.Background(), req, nil)
+}
+
+func TestTransport_transport(t *testing.T) {
+	// default transport
+	tp := &Transport{}
+	if tp.transport() != http.DefaultTransport {
+		t.Errorf("Expected http.DefaultTransport to be used.")
+	}
+
+	// custom transport
+	tp = &Transport{
+		Transport: &http.Transport{},
+	}
+	if tp.transport() == http.DefaultTransport {
+		t.Errorf("Expected custom transport to be used.")
+	}
+}
