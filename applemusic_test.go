@@ -217,7 +217,20 @@ func TestCheckResponse(t *testing.T) {
 	res := &http.Response{
 		Request:    &http.Request{},
 		StatusCode: http.StatusBadRequest,
-		Body:       ioutil.NopCloser(strings.NewReader(`{"errors": []}`)),
+		Body: ioutil.NopCloser(strings.NewReader(`{
+  "errors": [
+    {
+      "id": "ID",
+      "title": "Invalid Parameter Value",
+      "detail": "Invalid language tag 'zh-tw'",
+      "status": "400",
+      "code": "40005",
+      "source": {
+        "parameter": "l"
+      }
+    }
+  ]
+}`)),
 	}
 
 	err := CheckResponse(res).(*ErrorResponse)
@@ -227,7 +240,18 @@ func TestCheckResponse(t *testing.T) {
 
 	want := &ErrorResponse{
 		Response: res,
-		Errors:   []Error{},
+		Errors: []Error{
+			{
+				Id:     "ID",
+				Title:  "Invalid Parameter Value",
+				Detail: "Invalid language tag 'zh-tw'",
+				Status: "400",
+				Code:   "40005",
+				Source: Source{
+					Parameter: "l",
+				},
+			},
+		},
 	}
 	if !reflect.DeepEqual(err, want) {
 		t.Errorf("Error = %#v, want %#v", err, want)
