@@ -180,7 +180,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Res
 		}
 	}
 
-	return response, nil
+	return response, err
 }
 
 // Source represents the source of an error.
