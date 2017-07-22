@@ -32,6 +32,7 @@ type Artist struct {
 type Artists struct {
 	Data []Artist `json:"data"`
 	Href string   `json:"href,omitempty"`
+	Next string   `json:"next,omitempty"`
 }
 
 func (s *CatalogService) getArtists(ctx context.Context, u string) (*Artists, *Response, error) {

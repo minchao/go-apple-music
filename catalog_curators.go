@@ -10,4 +10,5 @@ type Curator struct {
 type Curators struct {
 	Data []Curator `json:"data"`
 	Href string    `json:"href,omitempty"`
+	Next string    `json:"next,omitempty"`
 }

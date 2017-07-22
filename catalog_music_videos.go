@@ -38,6 +38,8 @@ type MusicVideo struct {
 
 type MusicVideos struct {
 	Data []MusicVideo `json:"data"`
+	Href string       `json:"href,omitempty"`
+	Next string       `json:"next,omitempty"`
 }
 
 func (s *CatalogService) getMusicVideos(ctx context.Context, u string) (*MusicVideos, *Response, error) {

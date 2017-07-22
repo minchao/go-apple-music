@@ -43,6 +43,8 @@ type Playlist struct {
 
 type Playlists struct {
 	Data []Playlist `json:"data"`
+	Href string     `json:"href,omitempty"`
+	Next string     `json:"next,omitempty"`
 }
 
 func (s *CatalogService) getPlaylists(ctx context.Context, u string) (*Playlists, *Response, error) {

@@ -17,10 +17,10 @@ type StorefrontAttributes struct {
 
 // Storefront represents a storefront, an iTunes Store territory that the content is available in.
 type Storefront struct {
-	Attributes StorefrontAttributes `json:"attributes"`
-	Href       string               `json:"href"`
 	Id         string               `json:"id"`
 	Type       string               `json:"type"`
+	Href       string               `json:"href"`
+	Attributes StorefrontAttributes `json:"attributes"`
 }
 
 type Storefronts struct {

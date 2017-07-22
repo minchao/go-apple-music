@@ -27,6 +27,8 @@ type Station struct {
 
 type Stations struct {
 	Data []Station `json:"data"`
+	Href string    `json:"href,omitempty"`
+	Next string    `json:"next,omitempty"`
 }
 
 func (s *CatalogService) getStations(ctx context.Context, u string) (*Stations, *Response, error) {
