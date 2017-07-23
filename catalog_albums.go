@@ -2,7 +2,6 @@ package applemusic
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"strings"
 )
@@ -25,9 +24,9 @@ type AlbumAttributes struct {
 }
 
 type AlbumRelationships struct {
-	Artists Artists         `json:"artists"`          // Default inclusion: Identifiers only
-	Genres  *Genres         `json:"genres,omitempty"` // Default inclusion: None
-	Tracks  json.RawMessage `json:"tracks"`           // The songs and music videos on the album. Default inclusion: Objects
+	Artists Artists `json:"artists"`          // Default inclusion: Identifiers only
+	Genres  *Genres `json:"genres,omitempty"` // Default inclusion: None
+	Tracks  Tracks  `json:"tracks"`           // The songs and music videos on the album. Default inclusion: Objects
 }
 
 // Album represents an album.

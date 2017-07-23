@@ -2,7 +2,6 @@ package applemusic
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 	"reflect"
 	"testing"
@@ -158,9 +157,9 @@ var playlists = &Playlists{
 				},
 			},
 			Relationships: PlaylistRelationships{
-				Tracks: json.RawMessage(`{
-          "data": [
-            {
+				Tracks: Tracks{
+					Data: []Track{
+						Track(`{
               "id": "1043322098",
               "type": "songs",
               "href": "/v1/catalog/us/songs/1043322098",
@@ -192,10 +191,10 @@ var playlists = &Playlists{
                 "trackNumber": 6,
                 "composerName": "Janet Jackson, James Harris III & Terry Lewis"
               }
-            }
-          ],
-          "href": "/v1/catalog/us/playlists/pl.acc464c750b94302b8806e5fcbe56e17/tracks"
-        }`),
+            }`),
+					},
+					Href: "/v1/catalog/us/playlists/pl.acc464c750b94302b8806e5fcbe56e17/tracks",
+				},
 				Curator: Curators{
 					Data: []Curator{
 						{

@@ -2,7 +2,6 @@ package applemusic
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"strings"
 )
@@ -28,8 +27,8 @@ type PlaylistAttributes struct {
 }
 
 type PlaylistRelationships struct {
-	Curator Curators        `json:"curator"` // Default inclusion: Identifiers only
-	Tracks  json.RawMessage `json:"tracks"`  // The songs and music videos included in the playlist. Default inclusion: Objects
+	Curator Curators `json:"curator"` // Default inclusion: Identifiers only
+	Tracks  Tracks   `json:"tracks"`  // The songs and music videos included in the playlist. Default inclusion: Objects
 }
 
 // Playlist represents a playlist.
