@@ -33,5 +33,9 @@ client := applemusic.NewClient(tp.Client())
 storefronts, _, err := client.Storefront.GetAll(ctx, nil)
 ```
 
+## License
+
+See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
+
 [Apple Music API]: https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/AppleMusicWebServicesReference/
 [go-github]: https://github.com/google/go-github
