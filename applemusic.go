@@ -237,7 +237,8 @@ func CheckResponse(r *http.Response) error {
 
 // Transport is an http.RoundTripper.
 type Transport struct {
-	Token string // Apple Music token
+	Token          string // Apple Music developer token
+	MusicUserToken string
 
 	// Transport is the underlying HTTP transport to use when making requests.
 	// It will default to http.DefaultTransport if nil.
@@ -248,6 +249,9 @@ type Transport struct {
 func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {
 	req = cloneRequest(req) // per RoundTrip contract
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", t.Token))
+	if t.MusicUserToken != "" {
+		req.Header.Set("Music-User-Token", t.MusicUserToken)
+	}
 
 	return t.transport().RoundTrip(req)
 }
