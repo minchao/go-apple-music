@@ -24,7 +24,7 @@ type Generator struct {
 	// obtained from your developer account.
 	TeamId string
 
-	// TTL (time-to-live) must not be greater than 15777000 (6 months in seconds).
+	// TTL (time-to-live), must not be greater than 15777000 (6 months in seconds).
 	TTL int64
 
 	// MusicKit private key.

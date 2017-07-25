@@ -33,6 +33,35 @@ client := applemusic.NewClient(tp.Client())
 storefronts, _, err := client.Storefront.GetAll(ctx, nil)
 ```
 
+### Create a developer token
+
+Use the [token generator](examples/token-generator) tool to quickly create a developer token.
+
+    > cd examples/token-genrator
+    > go build
+
+Usage:
+
+    > ./generate-toke
+    Usage: generate-token [options]
+      -k string
+            MusicKit key
+      -l int
+            TTL (time-to-live), must not be greater than 15777000 (6 months in seconds) (default 3600)
+      -pf string
+            MusicKit private key, the path of private key file (.p8)
+      -pk string
+            MusicKit private key, enter string without BEGIN and END annotations
+      -t string
+            Team ID
+
+Run:
+
+    > ./generate-toke \
+    > -k=MUSICKIT_KEY \
+    > -t=TEAM_ID \
+    > -pk=MUSICKIT_PRIVATE_KEY_FILE
+
 ## License
 
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
