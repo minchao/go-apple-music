@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -215,22 +214,58 @@ func (r *ErrorResponse) Error() string {
 		r.Errors)
 }
 
+type errorMessageResponse struct {
+	Response *http.Response
+	Message  string `json:"message"`
+}
+
+func (e *errorMessageResponse) Error() string {
+	return fmt.Sprintf("%v %v: %d %s",
+		e.Response.Request.Method,
+		e.Response.Request.URL,
+		e.Response.StatusCode,
+		e.Message)
+}
+
+// UnauthorizedError occurs when server denied the request.
+type UnauthorizedError errorMessageResponse
+
+func (e *UnauthorizedError) Error() string {
+	return (*errorMessageResponse)(e).Error()
+}
+
+// TooManyRequestsError represents the Too Many Requests (429) error when the server exceeds its capacity.
+type TooManyRequestsError errorMessageResponse
+
+func (e *TooManyRequestsError) Error() string {
+	return (*errorMessageResponse)(e).Error()
+}
+
 // CheckResponse checks the API response for errors.
 func CheckResponse(r *http.Response) error {
 	if c := r.StatusCode; 200 <= c && c <= 299 {
 		return nil
 	}
-	if r.StatusCode == http.StatusUnauthorized {
-		return errors.New(http.StatusText(http.StatusUnauthorized))
-	}
 
-	errorResponse := &ErrorResponse{Response: r}
 	data, err := ioutil.ReadAll(r.Body)
-	if err == nil && data != nil {
-		json.Unmarshal(data, errorResponse)
-	}
+
 	switch r.StatusCode {
+	case http.StatusUnauthorized:
+		return &UnauthorizedError{
+			Response: r,
+			Message:  string(data),
+		}
+	case http.StatusTooManyRequests:
+		errorMessageResponse := &TooManyRequestsError{Response: r}
+		if err == nil && data != nil {
+			json.Unmarshal(data, errorMessageResponse)
+		}
+		return errorMessageResponse
 	default:
+		errorResponse := &ErrorResponse{Response: r}
+		if err == nil && data != nil {
+			json.Unmarshal(data, errorResponse)
+		}
 		return errorResponse
 	}
 }

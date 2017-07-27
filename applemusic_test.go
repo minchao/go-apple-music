@@ -283,14 +283,30 @@ func TestCheckResponse_statusUnauthorized(t *testing.T) {
 	res := &http.Response{
 		Request:    &http.Request{},
 		StatusCode: http.StatusUnauthorized,
-		Body:       ioutil.NopCloser(strings.NewReader("")),
+		Body:       ioutil.NopCloser(strings.NewReader("Unauthorized")),
 	}
 
 	err := CheckResponse(res)
 	if err == nil {
 		t.Error("Expected error response.")
 	}
-	if got, want := err.Error(), http.StatusText(http.StatusUnauthorized); got != want {
+	if got, want := err.(*UnauthorizedError).Message, "Unauthorized"; got != want {
+		t.Errorf("Error = %v, want %v", got, want)
+	}
+}
+
+func TestCheckResponse_statusTooManyRequests(t *testing.T) {
+	res := &http.Response{
+		Request:    &http.Request{},
+		StatusCode: http.StatusTooManyRequests,
+		Body:       ioutil.NopCloser(strings.NewReader(`{"message":"API capacity exceeded"}`)),
+	}
+
+	err := CheckResponse(res)
+	if err == nil {
+		t.Error("Expected error response.")
+	}
+	if got, want := err.(*TooManyRequestsError).Message, "API capacity exceeded"; got != want {
 		t.Errorf("Error = %v, want %v", got, want)
 	}
 }
