@@ -9,6 +9,7 @@ import (
 // StorefrontsService handles communication with the storefront related methods of the Apple Music API.
 type StorefrontsService service
 
+// StorefrontAttributes represents a to-one or to-many relationship from one resource object to others.
 type StorefrontAttributes struct {
 	DefaultLanguageTag    string   `json:"defaultLanguageTag"`
 	Name                  string   `json:"name"`
@@ -23,6 +24,7 @@ type Storefront struct {
 	Attributes StorefrontAttributes `json:"attributes"`
 }
 
+// Storefronts represents a list of storefronts.
 type Storefronts struct {
 	Data []Storefront `json:"data"`
 	Next string       `json:"next,omitempty"`
