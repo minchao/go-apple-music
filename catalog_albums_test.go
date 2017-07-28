@@ -23,7 +23,7 @@ func TestCatalogService_GetAlbum(t *testing.T) {
 		t.Errorf("Catalog.GetAlbum returned error: %v", err)
 	}
 	if want := albums; !reflect.DeepEqual(got, want) {
-		t.Errorf("Catalog.GetAlbumsByIds = %+v, want %+v", got, want)
+		t.Errorf("Catalog.GetAlbum = %+v, want %+v", got, want)
 	}
 }
 
