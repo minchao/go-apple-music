@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// SongAttributes represents the attributes of the resource.
 type SongAttributes struct {
 	Artwork          Artwork         `json:"artwork"`
 	ArtistName       string          `json:"artistName"`
@@ -26,6 +27,7 @@ type SongAttributes struct {
 	WorkName         string          `json:"workName,omitempty"`
 }
 
+// SongRelationships represents a to-one or to-many relationship from one resource object to others.
 type SongRelationships struct {
 	Albums  Albums  `json:"albums"`           // Default inclusion: Identifiers only
 	Artists Artists `json:"artists"`          // Default inclusion: Identifiers only

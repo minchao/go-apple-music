@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Album represents an album.
+// AlbumAttributes represents the attributes of the resource.
 type AlbumAttributes struct {
 	ArtistName     string          `json:"artistName"`
 	Artwork        Artwork         `json:"artwork"`
@@ -23,6 +23,7 @@ type AlbumAttributes struct {
 	URL            string          `json:"url"`
 }
 
+// AlbumRelationships represents a to-one or to-many relationship from one resource object to others.
 type AlbumRelationships struct {
 	Artists Artists `json:"artists"`          // Default inclusion: Identifiers only
 	Genres  *Genres `json:"genres,omitempty"` // Default inclusion: None

@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// ActivityAttributes represents the attributes of the resource.
 type ActivityAttributes struct {
 	URL            string          `json:"url"`
 	Name           string          `json:"name"`
@@ -13,6 +14,7 @@ type ActivityAttributes struct {
 	EditorialNotes *EditorialNotes `json:"editorialNotes,omitempty"`
 }
 
+// ActivityRelationships represents a to-one or to-many relationship from one resource object to others.
 type ActivityRelationships struct {
 	Playlists Playlists `json:"playlists"` // Default inclusion: Identifiers only
 }

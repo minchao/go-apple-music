@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// GenreAttributes represents the attributes of the resource.
 type GenreAttributes struct {
 	Name string `json:"name"`
 }

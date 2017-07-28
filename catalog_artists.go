@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// ArtistAttributes represents the attributes of the resource.
 type ArtistAttributes struct {
 	GenreNames     []string        `json:"genreNames"`
 	EditorialNotes *EditorialNotes `json:"editorialNotes,omitempty"`
@@ -13,6 +14,7 @@ type ArtistAttributes struct {
 	URL            string          `json:"url"`
 }
 
+// ArtistRelationships represents a to-one or to-many relationship from one resource object to others.
 type ArtistRelationships struct {
 	Albums      Albums       `json:"albums"`
 	Genres      *Genres      `json:"genres,omitempty"`

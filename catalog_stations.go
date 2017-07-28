@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// StationAttributes represents the attributes of the resource.
 type StationAttributes struct {
 	URL              string          `json:"url"`
 	Name             string          `json:"name"`

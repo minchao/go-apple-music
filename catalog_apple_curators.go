@@ -1,5 +1,6 @@
 package applemusic
 
+// AppleCuratorAttributes represents the attributes of the resource.
 type AppleCuratorAttributes struct {
 	URL            string          `json:"url"`
 	Name           string          `json:"name"`
@@ -7,6 +8,7 @@ type AppleCuratorAttributes struct {
 	EditorialNotes *EditorialNotes `json:"editorialNotes,omitempty"`
 }
 
+// AppleCuratorRelationships represents a to-one or to-many relationship from one resource object to others.
 type AppleCuratorRelationships struct {
 	Playlists Playlists `json:"playlists"` // Default inclusion: Identifiers only
 }
@@ -20,6 +22,7 @@ type AppleCurator struct {
 	Relationships AppleCuratorRelationships `json:"relationships"`
 }
 
+// AppleCurators represents a list of apple curators.
 type AppleCurators struct {
 	Data []AppleCurator `json:"data"`
 	Href string         `json:"href,omitempty"`

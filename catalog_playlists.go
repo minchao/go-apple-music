@@ -15,6 +15,7 @@ const (
 	PlaylistTypePersonalMix = PlaylistType("personal-mix")
 )
 
+// PlaylistAttributes represents the attributes of the resource.
 type PlaylistAttributes struct {
 	Artwork          *Artwork        `json:"artwork,omitempty"`
 	CuratorName      string          `json:"curatorName,omitempty"`
@@ -26,6 +27,7 @@ type PlaylistAttributes struct {
 	URL              string          `json:"url"`
 }
 
+// PlaylistRelationships represents a to-one or to-many relationship from one resource object to others.
 type PlaylistRelationships struct {
 	Curator Curators `json:"curator"` // Default inclusion: Identifiers only
 	Tracks  Tracks   `json:"tracks"`  // The songs and music videos included in the playlist. Default inclusion: Objects

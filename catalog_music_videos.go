@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// MusicVideoAttributes represents the attributes of the resource.
 type MusicVideoAttributes struct {
 	URL              string          `json:"url"`
 	Name             string          `json:"name"`
@@ -21,6 +22,7 @@ type MusicVideoAttributes struct {
 	VideoSubType     string          `json:"videoSubType,omitempty"`
 }
 
+// MusicVideoRelationships represents a to-one or to-many relationship from one resource object to others.
 type MusicVideoRelationships struct {
 	Albums  Albums  `json:"albums"`           // Default inclusion: Identifiers only
 	Artists Artists `json:"artists"`          // Default inclusion: Identifiers only
