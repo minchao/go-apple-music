@@ -7,6 +7,7 @@ type Curator struct {
 	Href string `json:"href"`
 }
 
+// Curators represents a list of curators.
 type Curators struct {
 	Data []Curator `json:"data"`
 	Href string    `json:"href,omitempty"`

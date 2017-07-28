@@ -29,6 +29,7 @@ type Artist struct {
 	Relationships ArtistRelationships `json:"relationships"`
 }
 
+// Artists represents a list of artists.
 type Artists struct {
 	Data []Artist `json:"data"`
 	Href string   `json:"href,omitempty"`

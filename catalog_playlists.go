@@ -40,6 +40,7 @@ type Playlist struct {
 	Relationships PlaylistRelationships `json:"relationships"`
 }
 
+// Playlists represents a list of playlists.
 type Playlists struct {
 	Data []Playlist `json:"data"`
 	Href string     `json:"href,omitempty"`

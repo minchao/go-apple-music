@@ -20,6 +20,7 @@ type Activity struct {
 	Relationships ActivityRelationships `json:"relationships"`
 }
 
+// Activities represents a list of activities.
 type Activities struct {
 	Data []Activity `json:"data"`
 	Href string     `json:"href,omitempty"`

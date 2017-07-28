@@ -41,6 +41,7 @@ type Song struct {
 	Relationships SongRelationships `json:"relationships"`
 }
 
+// Songs represents a list of songs.
 type Songs struct {
 	Data []Song `json:"data"`
 	Href string `json:"href,omitempty"`

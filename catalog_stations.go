@@ -25,6 +25,7 @@ type Station struct {
 	Attributes StationAttributes `json:"attributes"`
 }
 
+// Stations represents a list of stations.
 type Stations struct {
 	Data []Station `json:"data"`
 	Href string    `json:"href,omitempty"`
