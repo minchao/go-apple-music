@@ -10,11 +10,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-var (
-	ErrKeyMustBePEMEncoded = errors.New("Invalid Key: Key must be PEM encoded PKCS8 private key")
-	ErrNotECPrivateKey     = errors.New("Key is not a valid PKCS8 private key")
-)
-
 // Generator is a generator of Apple Music JWT token.
 type Generator struct {
 	// A 10-character key identifier (kid) key, obtained from your developer account.
@@ -63,7 +58,7 @@ func ParsePKCS8PrivateKeyFromPEM(key []byte) (*ecdsa.PrivateKey, error) {
 
 	var block *pem.Block
 	if block, _ = pem.Decode(key); block == nil {
-		return nil, ErrKeyMustBePEMEncoded
+		return nil, errors.New("Invalid Key: Key must be PEM encoded PKCS8 private key")
 	}
 
 	var parsedKey interface{}
@@ -74,7 +69,7 @@ func ParsePKCS8PrivateKeyFromPEM(key []byte) (*ecdsa.PrivateKey, error) {
 	var pkey *ecdsa.PrivateKey
 	var ok bool
 	if pkey, ok = parsedKey.(*ecdsa.PrivateKey); !ok {
-		return nil, ErrNotECPrivateKey
+		return nil, errors.New("Key is not a valid PKCS8 private key")
 	}
 
 	return pkey, nil
