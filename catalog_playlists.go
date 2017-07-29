@@ -11,13 +11,13 @@ type PlaylistType string
 
 const (
 	// PlaylistTypeUserShared is a playlist created and shared by an Apple Music user.
-	PlaylistTypeUserShared  = PlaylistType("user-shared")
+	PlaylistTypeUserShared = PlaylistType("user-shared")
 
 	// PlaylistTypeEditorial is a playlist created by an Apple Music curator.
-	PlaylistTypeEditorial   = PlaylistType("editorial")
+	PlaylistTypeEditorial = PlaylistType("editorial")
 
 	// PlaylistTypeExternal is a playlist created by an non-Apple curator or brand.
-	PlaylistTypeExternal    = PlaylistType("external")
+	PlaylistTypeExternal = PlaylistType("external")
 
 	// PlaylistTypePersonalMix is a personalized playlist for an Apple Music user.
 	PlaylistTypePersonalMix = PlaylistType("personal-mix")
