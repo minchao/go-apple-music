@@ -88,12 +88,12 @@ var appleCuratorsJSON = []byte(`{
 }`)
 
 var appleCurators = &AppleCurators{
-	Data: []AppleCurator{
+	Data: []Curator{
 		{
 			Id:   "976439526",
 			Type: "apple-curators",
 			Href: "/v1/catalog/us/apple-curators/976439526",
-			Attributes: AppleCuratorAttributes{
+			Attributes: CuratorAttributes{
 				URL:  "https://itunes.apple.com/us/curator/apple-music-alternative/id976439526",
 				Name: "Apple Music Alternative",
 				Artwork: Artwork{
@@ -111,7 +111,7 @@ var appleCurators = &AppleCurators{
 					Short:    "In the '90s, hair metal and hip-hop dominated. Then everything changed . . . ",
 				},
 			},
-			Relationships: AppleCuratorRelationships{
+			Relationships: CuratorRelationships{
 				Playlists: Playlists{
 					Data: []Playlist{
 						{
