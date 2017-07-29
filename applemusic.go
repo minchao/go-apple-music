@@ -38,6 +38,7 @@ type service struct {
 	client *Client
 }
 
+// Options specifies the optional parameters to support language tag and relationships.
 type Options struct {
 	// The localization to use, specified by a language tag.
 	// Any supported language tag may be used here, if one is not specified then en-us is used.
