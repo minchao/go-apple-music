@@ -68,6 +68,7 @@ func (s *CatalogService) Search(ctx context.Context, storefront string, opt *Sea
 	return search, resp, nil
 }
 
+// SearchHintsOptions specifies the parameters to search hints.
 type SearchHintsOptions struct {
 	Term     string `url:"term"`
 	Language string `url:"l,omitempty"`
@@ -75,6 +76,7 @@ type SearchHintsOptions struct {
 	Types    string `url:"types,omitempty"`
 }
 
+// SearchHintsResults represents a results, that contains terms array.
 type SearchHintsResults struct {
 	Terms []string `json:"terms"`
 }

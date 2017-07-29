@@ -5,35 +5,35 @@ import (
 	"fmt"
 )
 
-// ChartAlbums represents a list of albums.
+// ChartAlbums represents a chart of albums.
 type ChartAlbums struct {
 	Name  string `json:"name"`
 	Chart string `json:"chart"`
 	Albums
 }
 
-// ChartSongs represents a list of songs.
+// ChartSongs represents a chart of songs.
 type ChartSongs struct {
 	Name  string `json:"name"`
 	Chart string `json:"chart"`
 	Songs
 }
 
-// ChartMusicVideos represents a list of music videos.
+// ChartMusicVideos represents a chart of music videos.
 type ChartMusicVideos struct {
 	Name  string `json:"name"`
 	Chart string `json:"chart"`
 	MusicVideos
 }
 
-// ChartResults represents a chart, or a collection of the top songs, albums, or other types of resources.
+// ChartResults represents a results, that contains chart collections.
 type ChartResults struct {
 	Albums      *[]ChartAlbums      `json:"albums,omitempty"`
 	Songs       *[]ChartSongs       `json:"songs,omitempty"`
 	MusicVideos *[]ChartMusicVideos `json:"music-videos,omitempty"`
 }
 
-// Charts represents the result of search for charts.
+// Charts represents the result of one or more charts.
 type Charts struct {
 	Results ChartResults `json:"results"`
 }
