@@ -34,7 +34,7 @@ type PlayParameters struct {
 	Kind string `json:"kind"`
 }
 
-// Track represents a songs or music videos.
+// Track represents a songs or music-videos.
 type Track []byte
 
 // MarshalJSON returns m as the JSON encoding of m.
@@ -64,6 +64,19 @@ func (t Track) Type() string {
 		return ""
 	}
 	return track.Type
+}
+
+// Parse parses the Track.
+// For recognized Track types, a value of the corresponding struct type will be returned.
+func (t Track) Parse() (track interface{}, err error) {
+	switch t.Type() {
+	case "songs":
+		track = &Song{}
+	case "music-videos":
+		track = &MusicVideo{}
+	}
+	err = json.Unmarshal(t, &track)
+	return track, err
 }
 
 // Tracks represents a list of songs and music videos.
