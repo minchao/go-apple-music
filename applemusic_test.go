@@ -280,8 +280,12 @@ func TestCheckResponse_noBody(t *testing.T) {
 }
 
 func TestCheckResponse_statusUnauthorized(t *testing.T) {
+	u, _ := url.Parse("/")
 	res := &http.Response{
-		Request:    &http.Request{},
+		Request: &http.Request{
+			Method: "GET",
+			URL:    u,
+		},
 		StatusCode: http.StatusUnauthorized,
 		Body:       ioutil.NopCloser(strings.NewReader("Unauthorized")),
 	}
@@ -291,6 +295,9 @@ func TestCheckResponse_statusUnauthorized(t *testing.T) {
 		t.Error("Expected error response.")
 	}
 	if got, want := err.(*UnauthorizedError).Message, "Unauthorized"; got != want {
+		t.Errorf("Error = %v, want %v", got, want)
+	}
+	if got, want := err.Error(), "GET /: 401 Unauthorized"; got != want {
 		t.Errorf("Error = %v, want %v", got, want)
 	}
 }
@@ -316,15 +323,20 @@ func TestTransport(t *testing.T) {
 	defer teardown()
 
 	token := "TOKEN"
+	musicUserToken := "MUSIC_USER_TOKEN"
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if got, want := r.Header.Get("Authorization"), fmt.Sprintf("Bearer %s", token); got != want {
 			t.Errorf("request contained token %s, want %s", got, want)
 		}
+		if got, want := r.Header.Get("Music-User-Token"), musicUserToken; got != want {
+			t.Errorf("request contained music user token %s, want %s", got, want)
+		}
 	})
 
 	tp := &Transport{
-		Token: token,
+		Token:          token,
+		MusicUserToken: musicUserToken,
 	}
 	c := NewClient(tp.Client())
 	c.BaseURL = client.BaseURL
