@@ -62,9 +62,14 @@ Run:
     > -t=TEAM_ID \
     > -pk=MUSICKIT_PRIVATE_KEY_FILE
 
+### Create a Music User Token
+
+Use the [requestUserToken(forDeveloperToken:completionHandler:)][] method in the StoreKit framework.
+
 ## License
 
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
 
 [Apple Music API]: https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/AppleMusicWebServicesReference/
 [go-github]: https://github.com/google/go-github
+[requestUserToken(forDeveloperToken:completionHandler:)]: https://developer.apple.com/documentation/storekit/skcloudservicecontroller/2909079-requestusertokenfordevelopertoke
