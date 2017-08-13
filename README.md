@@ -66,6 +66,41 @@ Run:
 
 Use the [requestUserToken(forDeveloperToken:completionHandler:)][] method in the StoreKit framework.
 
+## Todo
+
+* Fetch History
+  * Get heavy rotation content
+* Fetch Recent
+  * Get recently played
+  * Get recent stations
+* Manage Ratings
+  * Get personal album rating
+  * Get multiple personal album ratings
+  * Add a personal album rating
+  * Delete a personal album rating
+  * Get personal music video rating
+  * Get multiple personal music video ratings
+  * Add a personal music video rating
+  * Delete a personal music video rating
+  * Get personal playlist rating
+  * Get multiple personal playlist ratings
+  * Add a personal playlist rating
+  * Delete a personal playlist rating
+  * Get personal song rating
+  * Get multiple personal song ratings
+  * Add a personal song rating
+  * Delete a personal song rating
+  * Get personal station rating
+  * Get multiple personal station ratings
+  * Add a personal station rating
+  * Delete a personal station rating
+* Fetch Recommendations
+  * Get default recommendations
+  * Get album recommendations
+  * Get playlist recommendations
+  * Get a recommendation
+  * Get multiple recommendations
+
 ## License
 
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
