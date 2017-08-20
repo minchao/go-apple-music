@@ -2,7 +2,6 @@ package applemusic
 
 import (
 	"encoding/json"
-	"errors"
 )
 
 // CatalogService handles communication with the catalog related methods of the Apple Music API.
@@ -35,23 +34,8 @@ type PlayParameters struct {
 }
 
 // Track represents a songs or music-videos.
-type Track []byte
-
-// MarshalJSON returns m as the JSON encoding of m.
-func (t Track) MarshalJSON() ([]byte, error) {
-	if t == nil {
-		return []byte("null"), nil
-	}
-	return t, nil
-}
-
-// UnmarshalJSON sets *t to a copy of data.
-func (t *Track) UnmarshalJSON(data []byte) error {
-	if t == nil {
-		return errors.New("Track: UnmarshalJSON on nil pointer")
-	}
-	*t = append((*t)[0:0], data...)
-	return nil
+type Track struct {
+	json.RawMessage `json:",inline"`
 }
 
 // Type returns the type of track resource.
@@ -59,7 +43,7 @@ func (t Track) Type() string {
 	var track struct {
 		Type string `json:"type"`
 	}
-	err := json.Unmarshal(t, &track)
+	err := json.Unmarshal(t.RawMessage, &track)
 	if err != nil {
 		return ""
 	}
@@ -75,7 +59,7 @@ func (t Track) Parse() (track interface{}, err error) {
 	case "music-videos":
 		track = &MusicVideo{}
 	}
-	err = json.Unmarshal(t, &track)
+	err = json.Unmarshal(t.RawMessage, &track)
 	return track, err
 }
 

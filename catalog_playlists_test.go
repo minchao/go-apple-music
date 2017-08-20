@@ -159,7 +159,8 @@ var playlists = &Playlists{
 			Relationships: PlaylistRelationships{
 				Tracks: Tracks{
 					Data: []Track{
-						Track(`{
+						{
+							[]byte(`{
               "id": "1043322098",
               "type": "songs",
               "href": "/v1/catalog/us/songs/1043322098",
@@ -191,7 +192,7 @@ var playlists = &Playlists{
                 "trackNumber": 6,
                 "composerName": "Janet Jackson, James Harris III & Terry Lewis"
               }
-            }`),
+            }`)},
 					},
 					Href: "/v1/catalog/us/playlists/pl.acc464c750b94302b8806e5fcbe56e17/tracks",
 				},

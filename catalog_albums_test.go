@@ -200,7 +200,8 @@ var albums = &Albums{
 				},
 				Tracks: Tracks{
 					Data: []Track{
-						Track(`{
+						{
+							[]byte(`{
               "attributes": {
                 "artistName": "Bruce Springsteen",
                 "artwork": {
@@ -237,6 +238,7 @@ var albums = &Albums{
               "id": "310730206",
               "type": "songs"
             }`),
+						},
 					},
 					Href: "/v1/catalog/us/albums/310730204/tracks",
 				},
