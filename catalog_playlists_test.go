@@ -158,7 +158,7 @@ var playlists = &Playlists{
 			},
 			Relationships: PlaylistRelationships{
 				Tracks: Tracks{
-					Data: []Track{
+					Data: []Resource{
 						{
 							[]byte(`{
               "id": "1043322098",

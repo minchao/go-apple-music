@@ -199,7 +199,7 @@ var albums = &Albums{
 					Href: "/v1/catalog/us/albums/310730204/artists",
 				},
 				Tracks: Tracks{
-					Data: []Track{
+					Data: []Resource{
 						{
 							[]byte(`{
               "attributes": {
