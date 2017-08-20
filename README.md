@@ -68,8 +68,6 @@ Use the [requestUserToken(forDeveloperToken:completionHandler:)][] method in the
 
 ## Todo
 
-* Fetch History
-  * Get heavy rotation content
 * Fetch Recent
   * Get recently played
   * Get recent stations
