@@ -21,8 +21,8 @@ func (r Resource) Type() string {
 
 // Parse parses the Resource.
 // For recognized Resource types, a value of the corresponding struct type will be returned.
-func (t Resource) Parse() (resource interface{}, err error) {
-	switch t.Type() {
+func (r Resource) Parse() (resource interface{}, err error) {
+	switch r.Type() {
 	case "albums":
 		resource = &Album{}
 	case "music-videos":
@@ -34,7 +34,7 @@ func (t Resource) Parse() (resource interface{}, err error) {
 	case "stations":
 		resource = &Station{}
 	}
-	err = json.Unmarshal(t.RawMessage, &resource)
+	err = json.Unmarshal(r.RawMessage, &resource)
 	return resource, err
 }
 
