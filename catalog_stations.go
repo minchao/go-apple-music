@@ -12,10 +12,10 @@ type StationAttributes struct {
 	Name             string          `json:"name"`
 	Artwork          Artwork         `json:"artwork"`
 	PlayParams       PlayParameters  `json:"playParams"` // Undocumented
-	EditorialNotes   *EditorialNotes `json:"editorialNotes,"`
+	EditorialNotes   *EditorialNotes `json:"editorialNotes,omitempty"`
 	IsLive           bool            `json:"isLive"`
-	DurationInMillis int64           `json:"durationInMillis,"`
-	EpisodeNumber    int             `json:"episodeNumber,"`
+	DurationInMillis int64           `json:"durationInMillis,omitempty"`
+	EpisodeNumber    int             `json:"episodeNumber,omitempty"`
 }
 
 // Station represents a station.
