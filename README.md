@@ -37,12 +37,12 @@ storefronts, _, err := client.Storefront.GetAll(ctx, nil)
 
 Use the [token generator](examples/token-generator) tool to quickly create a developer token.
 
-    > cd examples/token-genrator
-    > go build
+    $ cd examples/token-genrator
+    $ go build
 
 Usage:
 
-    > ./generate-toke
+    $ ./generate-toke
     Usage: generate-token [options]
       -k string
             MusicKit key
@@ -57,10 +57,10 @@ Usage:
 
 Run:
 
-    > ./generate-toke \
-    > -k=MUSICKIT_KEY \
-    > -t=TEAM_ID \
-    > -pk=MUSICKIT_PRIVATE_KEY_FILE
+    $ ./generate-toke \
+        -k=MUSICKIT_KEY \
+        -t=TEAM_ID \
+        -pf=MUSICKIT_PRIVATE_KEY_FILE
 
 ### Create a Music User Token
 
