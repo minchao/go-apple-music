@@ -58,6 +58,7 @@ var musicVideosJSON = []byte(`{
         "genreNames": [
           "Pop"
         ],
+        "isrc": "USUV71300701",
         "artistName": "will.i.am",
         "releaseDate": "2013-01-01",
         "artwork": {
@@ -103,6 +104,7 @@ var musicVideos = &MusicVideos{
 				GenreNames: []string{
 					"Pop",
 				},
+				ISRC:        "USUV71300701",
 				ArtistName:  "will.i.am",
 				ReleaseDate: "2013-01-01",
 				Artwork: Artwork{

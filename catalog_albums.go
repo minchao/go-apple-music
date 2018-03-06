@@ -17,6 +17,7 @@ type AlbumAttributes struct {
 	IsComplete     bool            `json:"isComplete"`
 	IsSingle       bool            `json:"isSingle"`
 	Name           string          `json:"name"`
+	RecordLabel    string          `json:"recordLabel"`
 	ReleaseDate    string          `json:"releaseDate"`
 	PlayParams     *PlayParameters `json:"playParams,omitempty"`
 	TrackCount     int64           `json:"trackCount"`

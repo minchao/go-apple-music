@@ -58,6 +58,10 @@ var playlistsJSON = []byte(`{
         "playlistType": "editorial",
         "lastModifiedDate": "2015-04-11T16:15:51Z",
         "curatorName": "Apple Music R&B",
+        "description": {
+          "short": "The songs that cemented her iconic status.",
+          "standard": "Few female artists have reached the top of the charts as frequently as Janet Jackson. We've assembled all of her number one hits for a chart-topping collection which confirms her status as the true Queen of pop-R&B."
+        },
         "artwork": {
           "width": 4320,
           "height": 1080,
@@ -99,6 +103,7 @@ var playlistsJSON = []byte(`{
                   "Pop",
                   "Music"
                 ],
+                "isrc": "USVI29700014",
                 "durationInMillis": 237485,
                 "releaseDate": "1986-02-04",
                 "name": "When I Think of You",
@@ -151,6 +156,10 @@ var playlists = &Playlists{
 					TextColor4: "ba8e5f",
 					IsMosaic:   true,
 				},
+				Description: &EditorialNotes{
+					Short:    "The songs that cemented her iconic status.",
+					Standard: "Few female artists have reached the top of the charts as frequently as Janet Jackson. We've assembled all of her number one hits for a chart-topping collection which confirms her status as the true Queen of pop-R&B.",
+				},
 				PlayParams: &PlayParameters{
 					Id:   "pl.acc464c750b94302b8806e5fcbe56e17",
 					Kind: "playlist",
@@ -182,6 +191,7 @@ var playlists = &Playlists{
                   "Pop",
                   "Music"
                 ],
+                "isrc": "USVI29700014",
                 "durationInMillis": 237485,
                 "releaseDate": "1986-02-04",
                 "name": "When I Think of You",
