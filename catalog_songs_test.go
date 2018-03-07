@@ -73,6 +73,7 @@ var songsJSON = []byte(`{
                 ],
                 "durationInMillis": 327693,
                 "releaseDate": "2014-07-11",
+                "isrc": "NLH851300057",
                 "name": "Something For the Pain",
                 "playParams": {
                     "id": "900032829",
@@ -132,6 +133,7 @@ var songs = &Songs{
 					"Music",
 					"Blues",
 				},
+				ISRC:             "NLH851300057",
 				DurationInMillis: 327693,
 				ReleaseDate:      "2014-07-11",
 				Name:             "Something For the Pain",

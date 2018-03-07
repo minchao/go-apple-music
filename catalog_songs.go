@@ -13,6 +13,7 @@ type SongAttributes struct {
 	URL              string          `json:"url"`
 	DiscNumber       int             `json:"discNumber"`
 	GenreNames       []string        `json:"genreNames"`
+	ISRC             string          `json:"isrc"`
 	DurationInMillis int64           `json:"durationInMillis,omitempty"`
 	ReleaseDate      string          `json:"releaseDate"`
 	Name             string          `json:"name"`

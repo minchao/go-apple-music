@@ -81,6 +81,7 @@ var albumsJSON = []byte(`{
           "id": "310730204",
           "kind": "album"
         },
+        "recordLabel": "Columbia",
         "releaseDate": "1975-08-25",
         "trackCount": 8,
         "url": "https://itunes.apple.com/us/album/born-to-run/id310730204"
@@ -124,6 +125,7 @@ var albumsJSON = []byte(`{
                   "Pop",
                   "Pop/Rock"
                 ],
+                "isrc": "USSM19904335",
                 "name": "Thunder Road",
                 "playParams": {
                   "id": "310730206",
@@ -181,6 +183,7 @@ var albums = &Albums{
 					Id:   "310730204",
 					Kind: "album",
 				},
+				RecordLabel: "Columbia",
 				ReleaseDate: "1975-08-25",
 				TrackCount:  8,
 				URL:         "https://itunes.apple.com/us/album/born-to-run/id310730204",
@@ -225,6 +228,7 @@ var albums = &Albums{
                   "Pop",
                   "Pop/Rock"
                 ],
+                "isrc": "USSM19904335",
                 "name": "Thunder Road",
                 "playParams": {
                   "id": "310730206",

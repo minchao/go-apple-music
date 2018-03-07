@@ -11,6 +11,7 @@ type MusicVideoAttributes struct {
 	URL              string          `json:"url"`
 	Name             string          `json:"name"`
 	GenreNames       []string        `json:"genreNames"`
+	ISRC             string          `json:"isrc"`
 	ArtistName       string          `json:"artistName"`
 	ReleaseDate      string          `json:"releaseDate"`
 	Artwork          Artwork         `json:"artwork"`
