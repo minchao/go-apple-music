@@ -60,6 +60,7 @@ type EditorialNotes struct {
 
 // PlayParameters represents play parameters for resources.
 type PlayParameters struct {
-	Id   string `json:"id"`
-	Kind string `json:"kind"`
+	Id        string `json:"id"`
+	Kind      string `json:"kind"`
+	IsLibrary bool   `json:"isLibrary,omitempty"` // Undocumented, Used in LibraryPlaylist.
 }
