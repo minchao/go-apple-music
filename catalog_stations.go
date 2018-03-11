@@ -15,7 +15,7 @@ type StationAttributes struct {
 	EditorialNotes   *EditorialNotes `json:"editorialNotes,omitempty"`
 	IsLive           bool            `json:"isLive"`
 	DurationInMillis int64           `json:"durationInMillis,omitempty"`
-	EpisodeNumber    string          `json:"episodeNumber,omitempty"` // Workaround for issue #2
+	EpisodeNumber    string          `json:"episodeNumber,omitempty"`
 }
 
 // Station represents a station.
