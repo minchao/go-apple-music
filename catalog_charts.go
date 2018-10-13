@@ -26,11 +26,19 @@ type ChartMusicVideos struct {
 	MusicVideos
 }
 
+// ChartPlaylists represent a chart of playlists.
+type ChartPlaylists struct {
+	Name  string `json:"name"`
+	Chart string `json:"chart"`
+	Playlists
+}
+
 // ChartResults represents a results, that contains chart collections.
 type ChartResults struct {
 	Albums      *[]ChartAlbums      `json:"albums,omitempty"`
 	Songs       *[]ChartSongs       `json:"songs,omitempty"`
 	MusicVideos *[]ChartMusicVideos `json:"music-videos,omitempty"`
+	Playlists   *[]ChartPlaylists   `json:"playlists,omitempty"`
 }
 
 // Charts represents the result of one or more charts.

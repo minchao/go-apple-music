@@ -47,7 +47,7 @@ type Playlist struct {
 	Type          string                `json:"type"`
 	Href          string                `json:"href"`
 	Attributes    PlaylistAttributes    `json:"attributes"`
-	Relationships PlaylistRelationships `json:"relationships"`
+	Relationships PlaylistRelationships `json:"relationships,omitempty"`
 }
 
 // Playlists represents a list of playlists.
