@@ -25,6 +25,10 @@ func (r Resource) Parse() (resource interface{}, err error) {
 	switch r.Type() {
 	case "albums":
 		resource = &Album{}
+	case "library-music-videos":
+		resource = &LibraryMusicVideo{}
+	case "library-songs":
+		resource = &LibrarySong{}
 	case "music-videos":
 		resource = &MusicVideo{}
 	case "playlists":
