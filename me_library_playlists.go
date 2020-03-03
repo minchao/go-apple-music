@@ -11,6 +11,11 @@ type LibraryPlaylists struct {
 	Next string            `json:"next,omitempty"`
 }
 
+type LibraryPlaylistTracks struct {
+	Data []Song `json:"data"`
+	Next string `json:"next,omitempty"`
+}
+
 func (s *MeService) getLibraryPlaylists(ctx context.Context, u string, opt interface{}) (*LibraryPlaylists, *Response, error) {
 	u, err := addOptions(u, opt)
 	if err != nil {
@@ -58,4 +63,42 @@ func (s *MeService) GetAllLibraryPlaylists(ctx context.Context, opt *PageOptions
 	u := "v1/me/library/playlists"
 
 	return s.getLibraryPlaylists(ctx, u, opt)
+}
+
+func (s *MeService) getLibraryPlaylistsTracks(ctx context.Context, u string, opt interface{}) (*LibraryPlaylistTracks, *Response, error) {
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	libraryPlaylistTracks := &LibraryPlaylistTracks{}
+	resp, err := s.client.Do(ctx, req, libraryPlaylistTracks)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return libraryPlaylistTracks, resp, nil
+}
+
+// GetLibraryPlaylist fetches a library playlist using its identifier.
+func (s *MeService) GetLibraryPlaylistTracks(ctx context.Context, id string, opt *Options) ([]Song, error) {
+	u := fmt.Sprintf("v1/me/library/playlists/%s/tracks", id)
+
+	var tracks []Song
+	for len(u) > 0 {
+		lpt, _, err := s.getLibraryPlaylistsTracks(ctx, u, opt)
+		if err != nil {
+			return tracks, err
+		}
+
+		tracks = append(tracks, lpt.Data...)
+		u = lpt.Next
+	}
+
+	return tracks, nil
 }
