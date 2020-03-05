@@ -67,4 +67,5 @@ type PlayParameters struct {
 	Id        string `json:"id"`
 	Kind      string `json:"kind"`
 	IsLibrary bool   `json:"isLibrary,omitempty"` // Undocumented, Used in LibraryPlaylist.
+	CatalogId string `json:"catalogId,omitempty"` // Undocumented, Used in LibraryPlaylist.
 }
