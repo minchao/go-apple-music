@@ -26,6 +26,8 @@ type SongAttributes struct {
 	MovementName     string          `json:"movementName,omitempty"`
 	MovementNumber   int             `json:"movementNumber,omitempty"`
 	WorkName         string          `json:"workName,omitempty"`
+	Previews         *[]Preview      `json:"previews,omitempty"`
+	AlbumName        string          `json:"albumName"`
 }
 
 // SongRelationships represents a to-one or to-many relationship from one resource object to others.
