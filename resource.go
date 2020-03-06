@@ -69,3 +69,8 @@ type PlayParameters struct {
 	IsLibrary bool   `json:"isLibrary,omitempty"` // Undocumented, Used in LibraryPlaylist.
 	CatalogId string `json:"catalogId,omitempty"` // Undocumented, Used in LibraryPlaylist.
 }
+
+// Preview represents an audio preview for resources.
+type Preview struct {
+	Url string `json:"url"`
+}
