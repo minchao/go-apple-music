@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // AlbumAttributes represents the attributes of the resource.
@@ -75,8 +74,8 @@ func (s *CatalogService) GetAlbum(ctx context.Context, storefront, id string, op
 
 // GetAlbumsByIds fetches one or more albums using their identifiers.
 func (s *CatalogService) GetAlbumsByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*Albums, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/albums?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/albums", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

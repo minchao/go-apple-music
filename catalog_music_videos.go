@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // MusicVideoAttributes represents the attributes of the resource.
@@ -74,8 +73,8 @@ func (s *CatalogService) GetMusicVideo(ctx context.Context, storefront, id strin
 
 // GetMusicVideosByIds fetches one or more music videos using their identifiers.
 func (s *CatalogService) GetMusicVideosByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*MusicVideos, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/music-videos?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/music-videos", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

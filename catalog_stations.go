@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // StationAttributes represents the attributes of the resource.
@@ -61,8 +60,8 @@ func (s *CatalogService) GetStation(ctx context.Context, storefront, id string, 
 
 // GetStationsByIds fetches one or more stations using their identifiers.
 func (s *CatalogService) GetStationsByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*Stations, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/stations?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/stations", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

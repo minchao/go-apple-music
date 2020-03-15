@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // AppleCurators represents a list of apple curators.
@@ -41,8 +40,8 @@ func (s *CatalogService) GetAppleCurator(ctx context.Context, storefront, id str
 
 // GetAppleCuratorsByIds fetches one or more apple curators using their identifiers.
 func (s *CatalogService) GetAppleCuratorsByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*AppleCurators, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/apple-curators?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/apple-curators", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

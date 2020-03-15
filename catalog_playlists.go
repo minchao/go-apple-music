@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // PlaylistType represents the type of playlist.
@@ -85,8 +84,8 @@ func (s *CatalogService) GetPlaylist(ctx context.Context, storefront, id string,
 
 // GetPlaylistsByIds fetches one or more playlists using their identifiers.
 func (s *CatalogService) GetPlaylistsByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*Playlists, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/playlists?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/playlists", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

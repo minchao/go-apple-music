@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // ActivityAttributes represents the attributes of the resource.
@@ -63,8 +62,8 @@ func (s *CatalogService) GetActivity(ctx context.Context, storefront, id string,
 
 // GetActivitiesByIds fetches one or more activities using their identifiers.
 func (s *CatalogService) GetActivitiesByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*Activities, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/activities?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/activities", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

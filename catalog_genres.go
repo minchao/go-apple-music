@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // GenreAttributes represents the attributes of the resource.
@@ -54,8 +53,8 @@ func (s *CatalogService) GetGenre(ctx context.Context, storefront, id string, op
 
 // GetGenresByIds fetches one or more genres.
 func (s *CatalogService) GetGenresByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*Genres, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/genres?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/genres", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

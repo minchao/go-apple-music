@@ -70,6 +70,47 @@ func testURLParseError(t *testing.T, err error) {
 	}
 }
 
+func Test_makeIdsOptions(t *testing.T) {
+	testCases := []struct {
+		ids  []string
+		opt  *Options
+		want IdsOptions
+	}{
+		{
+			ids:  []string{},
+			opt:  nil,
+			want: IdsOptions{},
+		},
+		{
+			ids: []string{"1", "2", "3"},
+			opt: nil,
+			want: IdsOptions{
+				Ids: "1,2,3",
+			},
+		},
+		{
+			ids: []string{"1", "2", "3"},
+			opt: &Options{
+				Language: "en-us",
+			},
+			want: IdsOptions{
+				Ids: "1,2,3",
+				Options: Options{
+					Language: "en-us",
+				},
+			},
+		},
+	}
+	for k, tc := range testCases {
+		t.Run(fmt.Sprintf("case=%d", k), func(t *testing.T) {
+			got := makeIdsOptions(tc.ids, tc.opt)
+			if !reflect.DeepEqual(got, tc.want) {
+				t.Errorf("makeIdsOptions() is %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
 func TestNewClient(t *testing.T) {
 	c := NewClient(nil)
 

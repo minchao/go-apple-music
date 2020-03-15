@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"strings"
 
 	"github.com/google/go-querystring/query"
 )
@@ -58,6 +59,22 @@ type PageOptions struct {
 	Offset int `url:"offset,omitempty"`
 
 	Options
+}
+
+type IdsOptions struct {
+	Ids string `url:"ids"`
+
+	Options
+}
+
+func makeIdsOptions(ids []string, opt *Options) IdsOptions {
+	idsOpt := IdsOptions{
+		Ids: strings.Join(ids, ","),
+	}
+	if opt != nil {
+		idsOpt.Options = *opt
+	}
+	return idsOpt
 }
 
 // addOptions adds the parameters in opt as URL query parameters to s.
@@ -151,6 +168,8 @@ func newResponse(r *http.Response) *Response {
 // The provided ctx must be non-nil. If it is canceled or time out, ctx.Err() will be returned.
 func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	req = req.WithContext(ctx)
+
+	fmt.Println("=======>", req.URL.RawQuery)
 
 	resp, err := c.client.Do(req)
 	if err != nil {

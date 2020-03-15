@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // ArtistAttributes represents the attributes of the resource.
@@ -66,8 +65,8 @@ func (s *CatalogService) GetArtist(ctx context.Context, storefront, id string, o
 
 // GetArtistsByIds fetches one or more artists using their identifiers.
 func (s *CatalogService) GetArtistsByIds(ctx context.Context, storefront string, ids []string, opt *Options) (*Artists, *Response, error) {
-	u := fmt.Sprintf("v1/catalog/%s/artists?ids=%s", storefront, strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := fmt.Sprintf("v1/catalog/%s/artists", storefront)
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}

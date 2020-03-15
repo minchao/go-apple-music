@@ -3,7 +3,6 @@ package applemusic
 import (
 	"context"
 	"fmt"
-	"strings"
 )
 
 // StorefrontsService handles communication with the storefront related methods of the Apple Music API.
@@ -58,8 +57,8 @@ func (s *StorefrontsService) Get(ctx context.Context, id string, opt *Options) (
 
 // GetByIds fetches multiple storefronts by ids.
 func (s *StorefrontsService) GetByIds(ctx context.Context, ids []string, opt *Options) (*Storefronts, *Response, error) {
-	u := fmt.Sprintf("v1/storefronts?ids=%s", strings.Join(ids, ","))
-	u, err := addOptions(u, opt)
+	u := "v1/storefronts"
+	u, err := addOptions(u, makeIdsOptions(ids, opt))
 	if err != nil {
 		return nil, nil, err
 	}
