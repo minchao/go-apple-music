@@ -15,6 +15,10 @@ type HistoryHeavyRotation struct {
 func (s *MeService) GetHistoryHeavyRotation(ctx context.Context, opt *PageOptions) (*HistoryHeavyRotation, *Response, error) {
 	u := "v1/me/history/heavy-rotation"
 	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
