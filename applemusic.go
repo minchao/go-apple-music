@@ -169,8 +169,6 @@ func newResponse(r *http.Response) *Response {
 func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Response, error) {
 	req = req.WithContext(ctx)
 
-	fmt.Println("=======>", req.URL.RawQuery)
-
 	resp, err := c.client.Do(req)
 	if err != nil {
 		select {
