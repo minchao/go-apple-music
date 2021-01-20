@@ -95,7 +95,16 @@ func addOptions(s string, opt interface{}) (string, error) {
 		return s, err
 	}
 
-	u.RawQuery = qs.Encode()
+	// We keep the values that were already present and add the new
+	// options to them
+	queryValues := u.Query()
+	for k, v := range qs {
+		for _, param := range v {
+			queryValues.Add(k, param)
+		}
+	}
+
+	u.RawQuery = queryValues.Encode()
 	return u.String(), nil
 }
 
