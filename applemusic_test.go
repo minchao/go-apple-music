@@ -111,6 +111,18 @@ func Test_makeIdsOptions(t *testing.T) {
 	}
 }
 
+// test we don't override the params already given when another param is specified in the url
+func Test_addOptions_noParamsOverride(t *testing.T) {
+	actualParams := "?offset=100"
+
+	want := "/v1/me/library/playlists/p.2P6WgVAuVeYx3OB/tracks?l=fr&offset=100"
+	got, _ := addOptions("/v1/me/library/playlists/p.2P6WgVAuVeYx3OB/tracks" + actualParams, Options{Language: "fr"})
+
+	if got != want {
+		t.Errorf("Url is %s, want %s", got, want)
+	}
+}
+
 func TestNewClient(t *testing.T) {
 	c := NewClient(nil)
 
