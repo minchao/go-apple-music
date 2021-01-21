@@ -116,7 +116,7 @@ func Test_addOptions_noParamsOverride(t *testing.T) {
 	actualParams := "?offset=100"
 
 	want := "/v1/me/library/playlists/p.2P6WgVAuVeYx3OB/tracks?l=fr&offset=100"
-	got, _ := addOptions("/v1/me/library/playlists/p.2P6WgVAuVeYx3OB/tracks" + actualParams, Options{Language: "fr"})
+	got, _ := addOptions("/v1/me/library/playlists/p.2P6WgVAuVeYx3OB/tracks"+actualParams, Options{Language: "fr"})
 
 	if got != want {
 		t.Errorf("Url is %s, want %s", got, want)
