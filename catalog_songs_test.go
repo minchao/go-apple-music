@@ -46,6 +46,45 @@ func TestCatalogService_GetSongsByIds(t *testing.T) {
 	}
 }
 
+func TestCatalogService_GetSongsByIsrcs(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/v1/catalog/us/songs", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		testFormValues(t, r, values{
+			"filter[isrc]": "NLH851300057",
+		})
+
+		w.WriteHeader(http.StatusOK)
+	})
+
+	_, _, err := client.Catalog.GetSongsByIsrcs(context.Background(), "us", []string{"NLH851300057"}, nil)
+	if err != nil {
+		t.Errorf("Catalog.GetSongsByIsrcs returned error: %v", err)
+	}
+}
+
+func TestCatalogService_GetSongsByIsrcsAndIdsWithOption(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/v1/catalog/us/songs", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "GET")
+		testFormValues(t, r, values{
+			"filter[isrc]": "NLH851300057",
+			"l":            "fr",
+		})
+
+		w.WriteHeader(http.StatusOK)
+	})
+
+	_, _, err := client.Catalog.GetSongsByIsrcs(context.Background(), "us", []string{"NLH851300057"}, &Options{Language: "fr"})
+	if err != nil {
+		t.Errorf("Catalog.GetSongsByIsrcs returned error: %v", err)
+	}
+}
+
 var songsJSON = []byte(`{
     "data": [
         {
