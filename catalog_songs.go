@@ -88,3 +88,14 @@ func (s *CatalogService) GetSongsByIds(ctx context.Context, storefront string, i
 
 	return s.getSongs(ctx, u)
 }
+
+// GetSongsByIsrcs fetches one or more songs using their ISRC identifiers.
+func (s *CatalogService) GetSongsByIsrcs(ctx context.Context, storefront string, isrcs []string, opt *Options) (*Songs, *Response, error) {
+	u := fmt.Sprintf("v1/catalog/%s/songs", storefront)
+	u, err := addOptions(u, makeIsrcsOptions(isrcs, opt))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return s.getSongs(ctx, u)
+}

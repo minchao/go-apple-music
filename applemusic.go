@@ -77,6 +77,22 @@ func makeIdsOptions(ids []string, opt *Options) IdsOptions {
 	return idsOpt
 }
 
+type IsrcOptions struct {
+	Isrcs string `url:"filter[isrc]"`
+
+	Options
+}
+
+func makeIsrcsOptions(isrcs []string, opt *Options) IsrcOptions {
+	isrcsOpt := IsrcOptions{
+		Isrcs: strings.Join(isrcs, ","),
+	}
+	if opt != nil {
+		isrcsOpt.Options = *opt
+	}
+	return isrcsOpt
+}
+
 // addOptions adds the parameters in opt as URL query parameters to s.
 // opt must be a struct whose fields may contain "url" tags.
 func addOptions(s string, opt interface{}) (string, error) {
