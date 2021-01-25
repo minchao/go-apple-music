@@ -102,3 +102,64 @@ func (s *MeService) GetLibraryPlaylistTracks(ctx context.Context, id string, opt
 
 	return tracks, nil
 }
+
+type CreateLibraryPlaylistAttributes struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type CreateLibraryPlaylistTrack struct {
+	Id   string `json:"id"`
+	Type string `json:"type"`
+}
+
+type CreateLibraryPlaylistTrackData struct {
+	Data []CreateLibraryPlaylistTrack `json:"data"`
+}
+
+type CreateLibraryPlaylistRelationships struct {
+	Tracks CreateLibraryPlaylistTrackData `json:"tracks"`
+}
+
+type CreateLibraryPlaylist struct {
+	Attributes    CreateLibraryPlaylistAttributes     `json:"attributes"`
+	Relationships *CreateLibraryPlaylistRelationships `json:"relationships,omitempty"`
+}
+
+func (s *MeService) CreateLibraryPlaylist(ctx context.Context, body CreateLibraryPlaylist, opt *Options) (*LibraryPlaylists, *Response, error) {
+	u := "v1/me/library/playlists"
+
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	req, err := s.client.NewRequest("POST", u, body)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	libraryPlaylists := &LibraryPlaylists{}
+	resp, err := s.client.Do(ctx, req, libraryPlaylists)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return libraryPlaylists, resp, nil
+}
+
+func (s *MeService) AddLibraryTracksToPlaylist(ctx context.Context, playlistId string, body CreateLibraryPlaylistTrackData) (*Response, error) {
+	u := fmt.Sprintf("/v1/me/library/playlists/%s/tracks", playlistId)
+
+	req, err := s.client.NewRequest("POST", u, body)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := s.client.Do(ctx, req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, nil
+}

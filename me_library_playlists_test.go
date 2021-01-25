@@ -253,3 +253,97 @@ var libraryPlaylists = &LibraryPlaylists{
 		},
 	},
 }
+
+func TestMeService_CreateLibraryPlaylist(t *testing.T) {
+	setup()
+	defer teardown()
+
+	libraryPlaylistsJSON := []byte(`{
+    "data":[
+        {
+            "id":"p.zp6KqKxsoQWAGN",
+            "type":"library-playlists",
+            "href":"/v1/me/library/playlists/p.zp6KqKxsoQWAGN",
+            "attributes":{
+                "name":"Some Playlist",
+                "description":{
+                    "standard":"My description"
+                },
+                "playParams":{
+                    "id":"p.zp6KqKxsoQWAGN",
+                    "kind":"playlist",
+                    "isLibrary":true
+                },
+                "canEdit":true
+            }
+        }
+    ]
+}`)
+
+	mux.HandleFunc("/v1/me/library/playlists", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		testJsonBodyValues(t, r, []byte(`{"attributes":{"name":"Some Playlist","description":"My description"}}`))
+
+		w.WriteHeader(http.StatusOK)
+		w.Write(libraryPlaylistsJSON)
+	})
+
+	got, _, err := client.Me.CreateLibraryPlaylist(
+		context.Background(),
+		CreateLibraryPlaylist{CreateLibraryPlaylistAttributes{Name: "Some Playlist", Description: "My description"}, nil},
+		nil,
+	)
+	if err != nil {
+		t.Errorf("Me.TestMeService_CreateLibraryPlaylist returned error: %v", err)
+	}
+
+	want := newLibraryPlaylists
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("Me.TestMeService_CreateLibraryPlaylist = %+v, want %+v", got, want)
+	}
+}
+
+var newLibraryPlaylists = &LibraryPlaylists{
+	Data: []LibraryPlaylist{
+		{
+			Attributes: LibraryPlaylistAttributes{
+				CanDelete: false,
+				CanEdit:   true,
+				Description: &EditorialNotes{
+					Standard: "My description",
+				},
+				Name: "Some Playlist",
+				PlayParams: &PlayParameters{
+					Id:        "p.zp6KqKxsoQWAGN",
+					Kind:      "playlist",
+					IsLibrary: true,
+				},
+			},
+			Href: "/v1/me/library/playlists/p.zp6KqKxsoQWAGN",
+			Id:   "p.zp6KqKxsoQWAGN",
+			Type: "library-playlists",
+		},
+	},
+}
+
+func TestMeService_AddLibraryTracksToPlaylist(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/v1/me/library/playlists/p.zp6KqKxsoQWAGN/tracks", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		testJsonBodyValues(t, r, []byte(`{"data":[{"id":"201281527","type":"music"}]}`))
+
+		w.WriteHeader(http.StatusNoContent)
+	})
+
+	_, err := client.Me.AddLibraryTracksToPlaylist(
+		context.Background(),
+		"p.zp6KqKxsoQWAGN",
+		CreateLibraryPlaylistTrackData{Data: []CreateLibraryPlaylistTrack{{Id: "201281527", Type: "music"}}},
+	)
+	if err != nil {
+		t.Errorf("Me.TestMeService_CreateLibraryPlaylist returned error: %v", err)
+	}
+}
