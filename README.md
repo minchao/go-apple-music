@@ -2,6 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/minchao/go-apple-music?status.svg)](https://godoc.org/github.com/minchao/go-apple-music)
 [![Build Status](https://travis-ci.org/minchao/go-apple-music.svg?branch=master)](https://travis-ci.org/minchao/go-apple-music)
+[![Continuous Integration](https://github.com/minchao/go-apple-music/workflows/Continuous%20Integration/badge.svg)](https://github.com/minchao/go-apple-music/actions?query=workflow%3A%22Continuous+Integration%22)
 [![Go Report Card](https://goreportcard.com/badge/github.com/minchao/go-apple-music)](https://goreportcard.com/report/github.com/minchao/go-apple-music)
 
 A Go client library for accessing the [Apple Music API][].
