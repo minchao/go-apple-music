@@ -61,6 +61,19 @@ func testFormValues(t *testing.T, r *http.Request, values values) {
 	}
 }
 
+func testJsonBodyValues(t *testing.T, r *http.Request, j []byte) {
+	body, _ := ioutil.ReadAll(r.Body)
+	var got map[string]interface{}
+	_ = json.Unmarshal(body, &got)
+
+	var want map[string]interface{}
+	_ = json.Unmarshal(j, &want)
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("Request body: %v, want %v", got, want)
+	}
+}
+
 func testURLParseError(t *testing.T, err error) {
 	if err == nil {
 		t.Errorf("Expected error to be returned")
