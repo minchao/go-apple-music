@@ -103,6 +103,65 @@ func (s *MeService) GetLibraryPlaylistTracks(ctx context.Context, id string, opt
 	return tracks, nil
 }
 
+type libraryPlaylistCatalogRelationships struct {
+	Tracks LibraryPlaylistTracks `json:"tracks"`
+}
+
+type libraryPlaylistCatalog struct {
+	Id            string                              `json:"id"`
+	Type          string                              `json:"type"`
+	Href          string                              `json:"href"`
+	Attributes    LibraryPlaylistAttributes           `json:"attributes"`
+	Relationships libraryPlaylistCatalogRelationships `json:"relationships"`
+}
+
+type libraryPlaylistCatalogResponse struct {
+	Data []libraryPlaylistCatalog `json:"data"`
+	Next string                   `json:"next,omitempty"`
+}
+
+func (s *MeService) getLibraryPlaylistCatalogTracks(ctx context.Context, u string, opt interface{}) (*LibraryPlaylistTracks, *Response, error) {
+	u, err := addOptions(u, opt)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	req, err := s.client.NewRequest("GET", u, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	libraryPlaylistResponse := &libraryPlaylistCatalogResponse{}
+	resp, err := s.client.Do(ctx, req, &libraryPlaylistResponse)
+	if err != nil {
+		return nil, resp, err
+	}
+	if libraryPlaylistResponse != nil && len(libraryPlaylistResponse.Data) > 0 {
+		return &libraryPlaylistResponse.Data[0].Relationships.Tracks, resp, nil
+	}
+	return nil, resp, nil
+
+}
+
+// GetLibraryPlaylistCatalogTracks fetches a library playlist using its identifier to get the catalog tracks of the playlist.
+func (s *MeService) GetLibraryPlaylistCatalogTracks(ctx context.Context, id string, opt *Options) ([]Song, error) {
+	u := fmt.Sprintf("v1/me/library/playlists/%s/catalog", id)
+
+	var tracks []Song
+	for len(u) > 0 {
+		opt.Include = "tracks"
+		lpt, _, err := s.getLibraryPlaylistCatalogTracks(ctx, u, opt)
+		if err != nil {
+			return tracks, err
+		}
+
+		tracks = append(tracks, lpt.Data...)
+		u = lpt.Next
+	}
+
+	return tracks, nil
+}
+
 type CreateLibraryPlaylistAttributes struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
