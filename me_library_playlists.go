@@ -144,13 +144,28 @@ func (s *MeService) getLibraryPlaylistCatalogTracks(ctx context.Context, u strin
 }
 
 // GetLibraryPlaylistCatalogTracks fetches a library playlist using its identifier to get the catalog tracks of the playlist.
-func (s *MeService) GetLibraryPlaylistCatalogTracks(ctx context.Context, id string, opt *Options) ([]Song, error) {
+func (s *MeService) GetLibraryPlaylistCatalogTracks(ctx context.Context, id string, limit int) ([]Song, error) {
 	u := fmt.Sprintf("v1/me/library/playlists/%s/catalog", id)
+	opt := &PageOptions{Limit: limit, Options: Options{Include: "tracks"}}
 
 	var tracks []Song
+
+	// first call is a different response then the pagination
+	lpt, _, err := s.getLibraryPlaylistCatalogTracks(ctx, u, opt)
+	if err != nil {
+		return tracks, err
+	}
+
+	tracks = append(tracks, lpt.Data...)
+
+	// get the rest of the songs if they exist
+	u = lpt.Next
 	for len(u) > 0 {
-		opt.Include = "tracks"
-		lpt, _, err := s.getLibraryPlaylistCatalogTracks(ctx, u, opt)
+		if limit != 0 && len(tracks) > limit {
+			return tracks, nil
+		}
+
+		lpt, _, err := s.getLibraryPlaylistsTracks(ctx, u, opt)
 		if err != nil {
 			return tracks, err
 		}
