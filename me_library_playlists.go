@@ -5,15 +5,39 @@ import (
 	"fmt"
 )
 
+type LibraryPlaylistMeta struct {
+	Total int `json:"total"`
+}
+
 // LibraryPlaylists represents a list of library playlist.
 type LibraryPlaylists struct {
-	Data []LibraryPlaylist `json:"data"`
-	Next string            `json:"next,omitempty"`
+	Data []LibraryPlaylist   `json:"data"`
+	Next string              `json:"next,omitempty"`
+	Meta LibraryPlaylistMeta `json:"meta,omitempty"`
 }
 
 type LibraryPlaylistTracks struct {
-	Data []Song `json:"data"`
-	Next string `json:"next,omitempty"`
+	Data []Song              `json:"data"`
+	Next string              `json:"next,omitempty"`
+	Meta LibraryPlaylistMeta `json:"meta,omitempty"`
+}
+
+type libraryPlaylistCatalogRelationships struct {
+	Tracks LibraryPlaylistTracks `json:"tracks"`
+}
+
+type libraryPlaylistCatalog struct {
+	Id            string                              `json:"id"`
+	Type          string                              `json:"type"`
+	Href          string                              `json:"href"`
+	Attributes    LibraryPlaylistAttributes           `json:"attributes"`
+	Relationships libraryPlaylistCatalogRelationships `json:"relationships"`
+}
+
+type libraryPlaylistCatalogResponse struct {
+	Data []libraryPlaylistCatalog `json:"data"`
+	Next string                   `json:"next,omitempty"`
+	Meta LibraryPlaylistMeta      `json:"meta,omitempty"`
 }
 
 func (s *MeService) getLibraryPlaylists(ctx context.Context, u string, opt interface{}) (*LibraryPlaylists, *Response, error) {
@@ -86,38 +110,26 @@ func (s *MeService) getLibraryPlaylistsTracks(ctx context.Context, u string, opt
 }
 
 // GetLibraryPlaylist fetches a library playlist using its identifier.
-func (s *MeService) GetLibraryPlaylistTracks(ctx context.Context, id string, opt *Options) ([]Song, error) {
+func (s *MeService) GetLibraryPlaylistTracks(ctx context.Context, id string, opt *PageOptions) ([]Song, int, error) {
 	u := fmt.Sprintf("v1/me/library/playlists/%s/tracks", id)
-
 	var tracks []Song
+	total := 0
+	limit := opt.Limit
 	for len(u) > 0 {
+		if limit > 0 && len(tracks) >= limit {
+			return tracks, total, nil
+		}
 		lpt, _, err := s.getLibraryPlaylistsTracks(ctx, u, opt)
 		if err != nil {
-			return tracks, err
+			return tracks, total, err
 		}
+		total = lpt.Meta.Total
 
 		tracks = append(tracks, lpt.Data...)
 		u = lpt.Next
 	}
 
-	return tracks, nil
-}
-
-type libraryPlaylistCatalogRelationships struct {
-	Tracks LibraryPlaylistTracks `json:"tracks"`
-}
-
-type libraryPlaylistCatalog struct {
-	Id            string                              `json:"id"`
-	Type          string                              `json:"type"`
-	Href          string                              `json:"href"`
-	Attributes    LibraryPlaylistAttributes           `json:"attributes"`
-	Relationships libraryPlaylistCatalogRelationships `json:"relationships"`
-}
-
-type libraryPlaylistCatalogResponse struct {
-	Data []libraryPlaylistCatalog `json:"data"`
-	Next string                   `json:"next,omitempty"`
+	return tracks, total, nil
 }
 
 func (s *MeService) getLibraryPlaylistCatalogTracks(ctx context.Context, u string, opt interface{}) (*LibraryPlaylistTracks, *Response, error) {
@@ -161,7 +173,7 @@ func (s *MeService) GetLibraryPlaylistCatalogTracks(ctx context.Context, id stri
 	// get the rest of the songs if they exist
 	u = lpt.Next
 	for len(u) > 0 {
-		if limit != 0 && len(tracks) > limit {
+		if limit != 0 && len(tracks) >= limit {
 			return tracks, nil
 		}
 
