@@ -8,6 +8,7 @@ type LibraryPlaylistAttributes struct {
 	PlayParams  *PlayParameters `json:"playParams"`
 	CanDelete   bool            `json:"canDelete"`
 	CanEdit     bool            `json:"canEdit"`
+	HasCatalog  bool            `json:"hasCatalog"`
 }
 
 // LibraryPlaylistRelationships represents a to-one or to-many relationship from one resource object to others.
