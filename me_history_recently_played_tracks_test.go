@@ -2,8 +2,8 @@ package applemusic
 
 import (
 	"context"
-	"github.com/google/go-cmp/cmp"
 	"net/http"
+	"reflect"
 	"testing"
 )
 
@@ -119,7 +119,7 @@ func TestMeService_GetHistoryRecentlyPlayedTracks(t *testing.T) {
 	want := historyRecentlyPlayedTracks
 	want.Next = "/v1/me/recent/played/tracks?offset=30"
 
-	if !cmp.Equal(got, want) {
+	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Me.TestMeService_GetHistoryRecentlyPlayedTracks = %+v, want %+v", got, want)
 	}
 }

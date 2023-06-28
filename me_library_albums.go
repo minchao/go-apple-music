@@ -13,12 +13,18 @@ type LibraryAlbumAttributes struct {
 	DateAdded  string         `json:"dateAdded"`
 }
 
+type LibraryAlbumRelationships struct {
+	Catalog Albums  `json:"catalog"`
+	Artists Artists `json:"artists"`
+}
+
 // LibraryAlbum represents a Resource object that represents a library album.
 type LibraryAlbum struct {
-	Id         string                 `json:"id"`
-	Type       string                 `json:"type"`
-	Href       string                 `json:"href,omitempty"`
-	Attributes LibraryAlbumAttributes `json:"attributes,omitempty"`
+	Id            string                    `json:"id"`
+	Type          string                    `json:"type"`
+	Href          string                    `json:"href,omitempty"`
+	Attributes    LibraryAlbumAttributes    `json:"attributes,omitempty"`
+	Relationships LibraryAlbumRelationships `json:"relationships,omitempty"`
 }
 
 // LibraryAlbums represents a list of library albums.

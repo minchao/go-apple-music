@@ -12,60 +12,82 @@ func TestMeService_GetAllLibraryAlbums(t *testing.T) {
 	defer teardown()
 
 	librarySongsJSON := []byte(`{
-	  "next": "/v1/me/library/albums?offset=25",
-	  "data": [
-		{
-		  "id": "l.DDD6dwm",
-		  "type": "library-albums",
-		  "href": "/v1/me/library/albums/l.DDD6dwm",
-		  "attributes": {
-			"trackCount": 11,
-			"genreNames": [
-			  "Jazz"
-			],
-			"name": "A Curious Tale of Trials + Persons",
-			"artistName": "Little Simz",
-			"artwork": {
-			  "width": 1200,
-			  "height": 1200,
-			  "url": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/26/4f/e0/264fe07d-9ae8-7178-4265-4d07a887f162/5060186929491_1.jpg/{w}x{h}bb.jpg"
-			},
-			"playParams": {
-			  "id": "l.DDD6dwm",
-			  "kind": "album",
-			  "isLibrary": true
-			},
-			"dateAdded": "2019-07-21T00:28:08Z"
-		  }
-		},
-		{
-		  "id": "l.U1ziHMp",
-		  "type": "library-albums",
-		  "href": "/v1/me/library/albums/l.U1ziHMp",
-		  "attributes": {
-			"trackCount": 14,
-			"genreNames": [
-			  "Funk"
-			],
-			"name": "A Funk Odyssey",
-			"artistName": "Jamiroquai",
-			"artwork": {
-			  "width": 1200,
-			  "height": 1200,
-			  "url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/93/11/41/9311418f-b406-1dce-c2f4-d1175fe9ae45/696998595422.jpg/{w}x{h}bb.jpg"
-			},
-			"playParams": {
-			  "id": "l.U1ziHMp",
-			  "kind": "album",
-			  "isLibrary": true
-			},
-			"dateAdded": "2019-07-21T00:28:08Z"
-		  }
-		}
-	  ],
-	  "meta": {
-		"total": 716
-	  }
+  "next": "/v1/me/library/albums?offset=25",
+  "data": [
+    {
+      "id": "l.DDD6dwm",
+      "type": "library-albums",
+      "href": "/v1/me/library/albums/l.DDD6dwm",
+      "relationships": {
+        "artists": {
+          "href": "/v1/me/library/albums/l.tsKXU8/artists",
+          "data": [
+            {
+              "id": "r.u7AyKin",
+              "type": "library-artists",
+              "href": "/v1/me/library/artists/r.u7AyKin"
+            }
+          ]
+        },
+        "catalog": {
+          "href": "/v1/me/library/albums/l.tsKXU8/catalog",
+          "data": [
+            {
+              "id": "568399080",
+              "type": "albums",
+              "href": "/v1/catalog/de/albums/568399080"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "trackCount": 11,
+        "genreNames": [
+          "Jazz"
+        ],
+        "name": "A Curious Tale of Trials + Persons",
+        "artistName": "Little Simz",
+        "artwork": {
+          "width": 1200,
+          "height": 1200,
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Music7/v4/26/4f/e0/264fe07d-9ae8-7178-4265-4d07a887f162/5060186929491_1.jpg/{w}x{h}bb.jpg"
+        },
+        "playParams": {
+          "id": "l.DDD6dwm",
+          "kind": "album",
+          "isLibrary": true
+        },
+        "dateAdded": "2019-07-21T00:28:08Z"
+      }
+    },
+    {
+      "id": "l.U1ziHMp",
+      "type": "library-albums",
+      "href": "/v1/me/library/albums/l.U1ziHMp",
+      "attributes": {
+        "trackCount": 14,
+        "genreNames": [
+          "Funk"
+        ],
+        "name": "A Funk Odyssey",
+        "artistName": "Jamiroquai",
+        "artwork": {
+          "width": 1200,
+          "height": 1200,
+          "url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/93/11/41/9311418f-b406-1dce-c2f4-d1175fe9ae45/696998595422.jpg/{w}x{h}bb.jpg"
+        },
+        "playParams": {
+          "id": "l.U1ziHMp",
+          "kind": "album",
+          "isLibrary": true
+        },
+        "dateAdded": "2019-07-21T00:28:08Z"
+      }
+    }
+  ],
+  "meta": {
+    "total": 716
+  }
 }`)
 
 	mux.HandleFunc("/v1/me/library/albums", func(w http.ResponseWriter, r *http.Request) {
