@@ -101,7 +101,7 @@ func TestMeService_GetHistoryRecentlyPlayedTracks(t *testing.T) {
 		  }
 		}
 	  ]
-}`)
+	}`)
 
 	mux.HandleFunc("/v1/me/recent/played/tracks", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "GET")
