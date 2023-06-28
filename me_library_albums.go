@@ -2,7 +2,7 @@ package applemusic
 
 import "context"
 
-// LibrarySongAttributes represents the attributes of library song object.
+// LibraryAlbumAttributes represents the attributes of library album object.
 type LibraryAlbumAttributes struct {
 	Name       string         `json:"name"`
 	ArtistName string         `json:"artistName"`
@@ -13,7 +13,7 @@ type LibraryAlbumAttributes struct {
 	DateAdded  string         `json:"dateAdded"`
 }
 
-// LibrarySong represents a Resource object that represents a library song.
+// LibraryAlbum represents a Resource object that represents a library album.
 type LibraryAlbum struct {
 	Id         string                 `json:"id"`
 	Type       string                 `json:"type"`
@@ -21,7 +21,7 @@ type LibraryAlbum struct {
 	Attributes LibraryAlbumAttributes `json:"attributes,omitempty"`
 }
 
-// LibrarySongs represents a list of library songs.
+// LibraryAlbums represents a list of library albums.
 type LibraryAlbums struct {
 	Data []LibraryAlbum `json:"data"`
 	Href string         `json:"href,omitempty"`
@@ -48,7 +48,7 @@ func (s *MeService) getLibraryAlbums(ctx context.Context, u string, opt interfac
 	return libraryAlbums, resp, nil
 }
 
-// GetAllLibrarySongs fetches all the library albums in alphabetical order.
+// GetAllLibraryAlbums fetches all the library albums in alphabetical order.
 func (s *MeService) GetAllLibraryAlbums(ctx context.Context, opt *PageOptions) (*LibraryAlbums, *Response, error) {
 	u := "v1/me/library/albums"
 

@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestMeService_GetAllLibrarAlbums(t *testing.T) {
+func TestMeService_GetAllLibraryAlbums(t *testing.T) {
 	setup()
 	defer teardown()
 
@@ -85,7 +85,7 @@ func TestMeService_GetAllLibrarAlbums(t *testing.T) {
 	want.Next = "/v1/me/library/albums?offset=25"
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("Me.TestMeService_GetAllLibrarySongs = %+v, want %+v", got, want)
+		t.Errorf("Me.TestMeService_GetAllLibraryAlbums = %+v, want %+v", got, want)
 	}
 }
 
