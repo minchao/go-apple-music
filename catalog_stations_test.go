@@ -15,7 +15,7 @@ func TestCatalogService_GetStation(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(stationsJSON)
+		_, _ = w.Write(stationsJSON)
 	})
 
 	got, _, err := client.Catalog.GetStation(context.Background(), "us", "ra.985484166", nil)

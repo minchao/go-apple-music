@@ -15,7 +15,7 @@ func TestCatalogService_GetAppleCurator(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(appleCuratorsJSON)
+		_, _ = w.Write(appleCuratorsJSON)
 	})
 
 	got, _, err := client.Catalog.GetAppleCurator(context.Background(), "us", "976439526", nil)

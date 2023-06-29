@@ -15,7 +15,7 @@ func TestCatalogService_GetMusicVideo(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(musicVideosJSON)
+		_, _ = w.Write(musicVideosJSON)
 	})
 
 	got, _, err := client.Catalog.GetMusicVideo(context.Background(), "us", "639032181", nil)

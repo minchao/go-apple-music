@@ -33,7 +33,7 @@ func TestStorefrontsService_Get(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(storefrontJSON)
+		_, _ = w.Write(storefrontJSON)
 	})
 
 	got, _, err := client.Storefront.Get(context.Background(), "jp", nil)
@@ -90,7 +90,7 @@ func TestStorefrontsService_GetByIds(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{
+		_, _ = w.Write([]byte(`{
   "data": [
     {
       "attributes": {
@@ -176,7 +176,7 @@ func TestStorefrontsService_GetAll(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{
+		_, _ = w.Write([]byte(`{
   "data": [
     {
       "attributes": {

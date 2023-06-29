@@ -15,7 +15,7 @@ func TestMeService_GetHistoryHeavyRotation(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(meHistoryHeavyRotationJSON)
+		_, _ = w.Write(meHistoryHeavyRotationJSON)
 	})
 
 	got, _, err := client.Me.GetHistoryHeavyRotation(context.Background(), nil)
