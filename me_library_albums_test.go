@@ -134,6 +134,28 @@ var libraryAlbums = &LibraryAlbums{
 				},
 				DateAdded: "2019-07-21T00:28:08Z",
 			},
+			Relationships: LibraryAlbumRelationships{
+				Catalog: Albums{
+					Data: []Album{
+						Album{
+							Id:   "568399080",
+							Type: "albums",
+							Href: "/v1/catalog/de/albums/568399080",
+						},
+					},
+					Href: "/v1/me/library/albums/l.tsKXU8/catalog",
+				},
+				Artists: Artists{
+					Href: "/v1/me/library/albums/l.tsKXU8/artists",
+					Data: []Artist{
+						Artist{
+							Id:   "r.u7AyKin",
+							Type: "library-artists",
+							Href: "/v1/me/library/artists/r.u7AyKin",
+						},
+					},
+				},
+			},
 		},
 		LibraryAlbum{
 			Id:   "l.U1ziHMp",
