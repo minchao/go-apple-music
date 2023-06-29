@@ -38,7 +38,7 @@ func TestMeService_GetLibraryPlaylist(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(playlistJSON)
+		_, _ = w.Write(playlistJSON)
 	})
 
 	got, _, err := client.Me.GetLibraryPlaylist(context.Background(), "p.MoGJYM3CYXW09B", nil)
@@ -124,7 +124,7 @@ func TestMeService_GetLibraryPlaylistByIds(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(libraryPlaylistsJSON)
+		_, _ = w.Write(libraryPlaylistsJSON)
 	})
 
 	got, _, err := client.Me.GetLibraryPlaylistsByIds(
@@ -197,7 +197,7 @@ func TestMeService_GetAllLibraryPlaylist(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(libraryPlaylistsJSON)
+		_, _ = w.Write(libraryPlaylistsJSON)
 	})
 
 	got, _, err := client.Me.GetAllLibraryPlaylists(
@@ -285,7 +285,7 @@ func TestMeService_CreateLibraryPlaylist(t *testing.T) {
 		testJsonBodyValues(t, r, []byte(`{"attributes":{"name":"Some Playlist","description":"My description"}}`))
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(libraryPlaylistsJSON)
+		_, _ = w.Write(libraryPlaylistsJSON)
 	})
 
 	got, _, err := client.Me.CreateLibraryPlaylist(

@@ -15,7 +15,7 @@ func TestCatalogService_GetActivity(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(activitiesJSON)
+		_, _ = w.Write(activitiesJSON)
 	})
 
 	got, _, err := client.Catalog.GetActivity(context.Background(), "us", "976439514", nil)

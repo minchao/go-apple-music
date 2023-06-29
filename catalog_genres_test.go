@@ -15,7 +15,7 @@ func TestCatalogService_GetGenre(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{
+		_, _ = w.Write([]byte(`{
     "data": [
         {
             "id": "14",
@@ -83,7 +83,7 @@ func TestCatalogService_GetAllGenres(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(genresJSON)
+		_, _ = w.Write(genresJSON)
 	})
 
 	opt := &PageOptions{

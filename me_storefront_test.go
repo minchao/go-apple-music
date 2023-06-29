@@ -15,7 +15,7 @@ func TestMeService_GetStorefront(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(meStorefrontJSON)
+		_, _ = w.Write(meStorefrontJSON)
 	})
 
 	got, _, err := client.Me.GetStorefront(context.Background(), nil)

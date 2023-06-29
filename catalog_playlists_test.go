@@ -15,7 +15,7 @@ func TestCatalogService_GetPlaylist(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(playlistsJSON)
+		_, _ = w.Write(playlistsJSON)
 	})
 
 	got, _, err := client.Catalog.GetPlaylist(context.Background(), "us", "pl.acc464c750b94302b8806e5fcbe56e17", nil)

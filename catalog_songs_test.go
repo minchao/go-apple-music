@@ -15,7 +15,7 @@ func TestCatalogService_GetSong(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(songsJSON)
+		_, _ = w.Write(songsJSON)
 	})
 
 	got, _, err := client.Catalog.GetSong(context.Background(), "us", "900032829", nil)

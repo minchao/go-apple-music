@@ -15,7 +15,7 @@ func TestCatalogService_GetArtist(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(artistsJSON)
+		_, _ = w.Write(artistsJSON)
 	})
 
 	got, _, err := client.Catalog.GetArtist(context.Background(), "us", "178834", nil)

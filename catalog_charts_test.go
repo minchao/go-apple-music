@@ -21,7 +21,7 @@ func TestCatalogService_GetAllCharts(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(chartsJSON)
+		_, _ = w.Write(chartsJSON)
 	})
 
 	opt := &ChartsOptions{

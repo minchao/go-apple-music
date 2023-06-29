@@ -55,7 +55,7 @@ func testFormValues(t *testing.T, r *http.Request, values values) {
 		want.Set(k, v)
 	}
 
-	r.ParseForm()
+	_ = r.ParseForm()
 	if got := r.Form; !reflect.DeepEqual(got, want) {
 		t.Errorf("Request parameters: %v, want %v", got, want)
 	}
@@ -238,7 +238,7 @@ func TestDo(t *testing.T) {
 
 	req, _ := client.NewRequest("GET", "/", nil)
 	body := new(foo)
-	client.Do(context.Background(), req, body)
+	_, _ = client.Do(context.Background(), req, body)
 
 	want := &foo{"a"}
 	if !reflect.DeepEqual(body, want) {
@@ -407,7 +407,7 @@ func TestTransport(t *testing.T) {
 	c := NewClient(tp.Client())
 	c.BaseURL = client.BaseURL
 	req, _ := c.NewRequest("GET", "/", nil)
-	c.Do(context.Background(), req, nil)
+	_, _ = c.Do(context.Background(), req, nil)
 }
 
 func TestTransport_transport(t *testing.T) {

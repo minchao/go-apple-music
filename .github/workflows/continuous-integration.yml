@@ -5,32 +5,23 @@ jobs:
   test:
     strategy:
       matrix:
-        go-version: [ 1.x, 1.14.x ]
+        go-version: [ 1.x ]
         platform: [ ubuntu-latest ]
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/setup-go@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
-      - uses: actions/checkout@v2
+      - uses: golangci/golangci-lint-action@v3
 
-      - name: Cache go modules
-        uses: actions/cache@v2
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Run go fmt
-        run: diff -u <(echo -n) <(gofmt -d -s .)
-      - name: Run go vet
-        run: go vet ./...
+      - name: Run lint
+        run: make lint
       - name: Run go test
-        run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+        run: make test
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

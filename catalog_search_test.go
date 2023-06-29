@@ -20,7 +20,7 @@ func TestCatalogService_Search(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(searchJSON)
+		_, _ = w.Write(searchJSON)
 	})
 
 	opt := &SearchOptions{
@@ -51,7 +51,7 @@ func TestCatalogService_SearchHints(t *testing.T) {
 		})
 
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{
+		_, _ = w.Write([]byte(`{
     "results": {
         "terms": [
             "love kendrick lamar",

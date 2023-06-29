@@ -15,7 +15,7 @@ func TestCatalogService_GetAlbum(t *testing.T) {
 		testMethod(t, r, "GET")
 
 		w.WriteHeader(http.StatusOK)
-		w.Write(albumsJSON)
+		_, _ = w.Write(albumsJSON)
 	})
 
 	got, _, err := client.Catalog.GetAlbum(context.Background(), "us", "310730204", nil)

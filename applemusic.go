@@ -215,7 +215,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Res
 
 	if v != nil {
 		if w, ok := v.(io.Writer); ok {
-			io.Copy(w, resp.Body)
+			_, err = io.Copy(w, resp.Body)
 		} else {
 			err = json.NewDecoder(resp.Body).Decode(v)
 			if err == io.EOF {
@@ -303,13 +303,13 @@ func CheckResponse(r *http.Response) error {
 	case http.StatusTooManyRequests:
 		errorMessageResponse := &TooManyRequestsError{Response: r}
 		if err == nil && data != nil {
-			json.Unmarshal(data, errorMessageResponse)
+			_ = json.Unmarshal(data, errorMessageResponse)
 		}
 		return errorMessageResponse
 	default:
 		errorResponse := &ErrorResponse{Response: r}
 		if err == nil && data != nil {
-			json.Unmarshal(data, errorResponse)
+			_ = json.Unmarshal(data, errorResponse)
 		}
 		return errorResponse
 	}
