@@ -31,9 +31,10 @@ type SongAttributes struct {
 
 // SongRelationships represents a to-one or to-many relationship from one resource object to others.
 type SongRelationships struct {
-	Albums  Albums  `json:"albums"`           // Default inclusion: Identifiers only
-	Artists Artists `json:"artists"`          // Default inclusion: Identifiers only
-	Genres  *Genres `json:"genres,omitempty"` // Default inclusion: None
+	Albums  Albums  `json:"albums"`            // Default inclusion: Identifiers only
+	Artists Artists `json:"artists"`           // Default inclusion: Identifiers only
+	Genres  *Genres `json:"genres,omitempty"`  // Default inclusion: None
+	Catalog *Songs  `json:"catalog,omitempty"` // Default inclusion: None
 }
 
 // Song represents a song.
