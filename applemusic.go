@@ -48,6 +48,9 @@ type Options struct {
 
 	// Additional relationships to include in the fetch.
 	Include string `url:"include,omitempty"`
+
+	// Additional relationships to extend in the fetch.
+	Extend string `url:"extend,omitempty"`
 }
 
 // PageOptions specifies the optional parameters to support pagination of the objects.

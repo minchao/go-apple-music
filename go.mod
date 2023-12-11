@@ -1,4 +1,4 @@
-module github.com/minchao/go-apple-music
+module github.com/darkweak/go-apple-music
 
 go 1.13
 

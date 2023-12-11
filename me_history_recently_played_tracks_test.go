@@ -52,6 +52,7 @@ func TestMeService_GetHistoryRecentlyPlayedTracks(t *testing.T) {
 				"url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/51/a3/67/51a36707-d65a-81f3-fe31-59804fb2bdfa/mzaf_13431577798219308851.plus.aac.p.m4a"
 			  }
 			],
+			"artistUrl": "https://music.apple.com/de/artist/forss/7018169",
 			"artistName": "Forss"
 		  }
 		},

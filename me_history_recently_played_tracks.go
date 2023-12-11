@@ -6,6 +6,7 @@ import "context"
 type HistoryRecentlyPlayedTrackAttributes struct {
 	AlbumName            string         `json:"albumName"`
 	ArtistName           string         `json:"artistName"`
+	ArtistURL            string         `json:"artistUrl,omitempty"`
 	Artwork              Artwork        `json:"artwork"`
 	DiscNumber           int            `json:"discNumber"`
 	DurationInMillis     int64          `json:"durationInMillis,omitempty"`
